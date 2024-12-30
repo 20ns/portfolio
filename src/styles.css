@@ -65,7 +65,13 @@ nav li a:hover {
   text-align: center;
 }
 
+@keyframes test-animation {
+  0% { background-color: red; }
+  100% { background-color: blue; }
+}
+
 #hero h1 {
+  animation: test-animation 2s infinite alternate;
   font-size: 3rem;
   margin-bottom: 1rem;
 }

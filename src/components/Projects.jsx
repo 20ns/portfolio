@@ -3,7 +3,7 @@ import React from 'react';
 const projectsData = [
   {
     title: 'Project 1',
-    imageUrl: 'https://placehold.co/400x300', // Placeholder image
+    imageUrl: 'https://placehold.co/400x300',
     description: 'Short description of Project 1.',
   },
   {
@@ -32,9 +32,13 @@ const Projects = () => {
           <div
             key={index}
             className="bg-gray-700 rounded-lg p-6 shadow-md animate-slide-in-left"
-            style={{ animationDelay: `${index * 0.2}s` }} // Staggered animation
+            style={{ animationDelay: `${index * 0.2}s` }}
           >
-            <img src={project.imageUrl} alt={project.title} className="w-full h-48 object-cover rounded-md" />
+            <img
+              src={project.imageUrl}
+              alt={project.title}
+              className="w-full h-48 object-cover rounded-md"
+            />
             <h3 className="text-xl font-bold mt-4">{project.title}</h3>
             <p className="mt-2">{project.description}</p>
           </div>

@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       animation: {
-        typing: 'typing 2s steps(40, end), blink-caret .75s step-end infinite', // Typing animation
-        'slide-in-left': 'slide-in-left 1s ease-out', // Slide-in animation duration set to 1s
+        typing: 'typing 2s steps(40, end), blink-caret .75s step-end infinite',
+        'slide-in-left': 'slide-in-left 1s ease-out',
       },
       keyframes: {
         typing: {
