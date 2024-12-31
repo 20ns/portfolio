@@ -54,46 +54,6 @@ nav li a:hover {
   text-decoration: underline;
 }
 
-/* Hero Section */
-#hero {
-  background-color: var(--charcoal);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-@keyframes test-animation {
-  0% { background-color: red; }
-  100% { background-color: blue; }
-}
-
-#hero h1 {
-  animation: test-animation 2s infinite alternate;
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-#hero p {
-  margin-bottom: 2rem;
-}
-
-#hero button {
-  background-color: var(--electric-cyan);
-  color: var(--white);
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#hero button:hover {
-  background-color: var(--lime-green);
-}
-
 /* About Me Section */
 #about {
   padding: 4rem;
