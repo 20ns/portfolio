@@ -1,21 +1,20 @@
 import React from 'react';
 import Hero from './components/Hero';
+import Intro from './components/Intro';
+import Navbar from './components/Navbar';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
-import Navbar from './components/Navbar';
-// Import About and Skills components when you create them:
-// import About from './components/About';
-// import Skills from './components/Skills';
 
 function App() {
   return (
     <>
       <Navbar />
+      <div className="two-column-container">
+        <Hero />
+        <Intro />
+      </div>
+      {/* Keep the rest of your main content outside the two-column layout */}
       <main>
-        <section id="hero"><Hero /></section>
-        {/* Render About and Skills components when you create them: */}
-        {/* <section id="about"><About /></section> */}
-        {/* <section id="skills"><Skills /></section> */}
         <section id="portfolio"><Projects /></section>
         <section id="contact"><Contact /></section>
       </main>

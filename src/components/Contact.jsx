@@ -6,7 +6,7 @@ const Contact = () => {
       <h2 className="text-3xl font-bold mb-8">Contact</h2>
       <div className="flex justify-center space-x-6">
         <a
-          href="https://www.linkedin.com/in/your-linkedin-profile" // Replace with your LinkedIn
+          href="https://www.linkedin.com/in/navpreetsinghcs" 
           target="_blank"
           rel="noopener noreferrer"
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300"
@@ -14,7 +14,7 @@ const Contact = () => {
           LinkedIn
         </a>
         <a
-          href="https://github.com/your-github-username" // Replace with your GitHub
+          href="https://github.com/20ns"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-full transition duration-300"
