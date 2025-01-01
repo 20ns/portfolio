@@ -12,20 +12,33 @@ const Navbar = ({ onToggle }) => {
     setIsOpen(false);
     onToggle(false);
   };
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 600) {
-        setIsOpen(false); // Close the navbar on resize if it's larger than 600px
-        onToggle(false)
+        setIsOpen(false);
+        onToggle(false);
       }
     };
-  
+
     window.addEventListener('resize', handleResize);
-  
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const smoothScroll = (targetId) => {
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <nav
@@ -41,7 +54,14 @@ const Navbar = ({ onToggle }) => {
         }`}
       >
         <li className="mb-4">
-          <a href="#" className="hover:text-blue-400 whitespace-nowrap">
+          <a
+            href="#"
+            className="hover:text-blue-400 whitespace-nowrap"
+            onClick={(e) => {
+              e.preventDefault(); 
+              smoothScroll('hero');
+            }}
+          >
             {isOpen ? 'Home' : 'H'}
           </a>
         </li>
@@ -49,12 +69,23 @@ const Navbar = ({ onToggle }) => {
           <a
             href="#projects"
             className="hover:text-blue-400 whitespace-nowrap"
+            onClick={(e) => {
+              e.preventDefault();
+              smoothScroll('portfolio'); // Keep id="portfolio"
+            }}
           >
             {isOpen ? 'Projects' : 'P'}
           </a>
         </li>
         <li>
-          <a href="#contact" className="hover:text-blue-400 whitespace-nowrap">
+          <a
+            href="#contact"
+            className="hover:text-blue-400 whitespace-nowrap"
+            onClick={(e) => {
+              e.preventDefault();
+              smoothScroll('contact'); // Keep id="contact"
+            }}
+          >
             {isOpen ? 'Contact' : 'C'}
           </a>
         </li>
