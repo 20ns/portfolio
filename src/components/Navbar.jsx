@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Navbar = () => {
+const Navbar = ({ onToggle }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMouseEnter = () => {
     setIsOpen(true);
+    onToggle(true);
   };
 
   const handleMouseLeave = () => {
     setIsOpen(false);
+    onToggle(false);
   };
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 600) {
+        setIsOpen(false); // Close the navbar on resize if it's larger than 600px
+        onToggle(false)
+      }
+    };
+  
+    window.addEventListener('resize', handleResize);
+  
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <nav
