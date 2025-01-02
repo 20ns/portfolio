@@ -43,7 +43,7 @@ const Navbar = ({ onToggle }) => {
   return (
     <nav
       className={`fixed top-0 right-0 h-screen w-16 sm:w-32 bg-gray-800 bg-opacity-70 text-white transition-all duration-300 ${
-        isOpen ? 'sm:w-32 w-24 bg-opacity-90' : 'sm:w-16 w-8 bg-opacity-70'
+        isOpen ? 'sm:w-32 w-24 bg-opacity-90 backdrop-filter-blur' : 'sm:w-16 w-8 bg-opacity-70 backdrop-filter-blur'
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -56,7 +56,7 @@ const Navbar = ({ onToggle }) => {
         <li className="mb-4">
           <a
             href="#"
-            className="hover:text-blue-400 whitespace-nowrap"
+            className="hover:text-blue-400 whitespace-nowrap text-shadow-lg"
             onClick={(e) => {
               e.preventDefault(); 
               smoothScroll('hero');
@@ -68,10 +68,10 @@ const Navbar = ({ onToggle }) => {
         <li className="mb-4">
           <a
             href="#projects"
-            className="hover:text-blue-400 whitespace-nowrap"
+            className="hover:text-blue-400 whitespace-nowrap text-shadow-lg"
             onClick={(e) => {
               e.preventDefault();
-              smoothScroll('portfolio'); // Keep id="portfolio"
+              smoothScroll('portfolio'); 
             }}
           >
             {isOpen ? 'Projects' : 'P'}
@@ -80,10 +80,10 @@ const Navbar = ({ onToggle }) => {
         <li>
           <a
             href="#contact"
-            className="hover:text-blue-400 whitespace-nowrap"
+            className="hover:text-blue-400 whitespace-nowrap text-shadow-lg"
             onClick={(e) => {
               e.preventDefault();
-              smoothScroll('contact'); // Keep id="contact"
+              smoothScroll('contact');
             }}
           >
             {isOpen ? 'Contact' : 'C'}
