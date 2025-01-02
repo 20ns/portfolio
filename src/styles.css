@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
 :root {
   --dark-gray: #1E1E1E;
   --charcoal: #2C2C2C;
@@ -25,18 +27,24 @@ h1, h2, h3 {
 nav {
   background-color: rgba(44, 44, 44, 0.85);
   position: fixed;
-  top: 0;
+  top: 50%; /* Move the top edge to the middle of the screen */
+  right: 0;
+  transform: translateY(-50%); /* Shift the navbar up by half its height to center it */
+  border-radius: 9999px;
+  height: 300px;
   width: 100%;
   z-index: 100;
   transition: width 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Add drop shadow */
+  border: 2px solid white; /* Add white stroke */
 }
 
 /* Apply frosted glass effect when the navbar is minimized */
 nav.backdrop-filter-blur {
-    backdrop-filter: blur(5px); /* Adjust the blur value as needed */
-    -webkit-backdrop-filter: blur(5px); /* For Safari */
-    background-color: rgba(44, 44, 44, 0.5); /* Adjust background opacity */
-  }
+  backdrop-filter: blur(5px); /* Adjust the blur value as needed */
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
+  background-color: rgba(44, 44, 44, 0.5); /* Adjust background opacity */
+}
 
 nav ul {
   list-style: none;
@@ -56,12 +64,16 @@ nav li a {
   text-decoration: none;
   padding: 1rem;
   display: block;
-  transition: color 0.3s ease; /* Smooth color transition on hover */
+  transition: color 0.3s ease;
+  transition: transform 0.2s ease;
+  font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+  font-weight: 700;
 }
 
 nav li a:hover {
   color: var(--electric-cyan);
-  text-decoration: underline;
+  transform: scale(1.20);
+  text-decoration: none;
 }
 
 #about {
@@ -172,6 +184,13 @@ footer {
 .hero {
   text-align: left;
   margin-bottom: 2rem;
+}
+.hero p {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  color: #d1d5db;
+  /* Add your custom styles */
+  font-family: 'Arial', sans-serif; /* Change font family */
 }
 
 .intro {

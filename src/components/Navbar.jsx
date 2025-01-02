@@ -42,8 +42,8 @@ const Navbar = ({ onToggle }) => {
 
   return (
     <nav
-      className={`fixed top-0 right-0 h-screen w-16 sm:w-32 bg-gray-800 bg-opacity-70 text-white transition-all duration-300 ${
-        isOpen ? 'sm:w-32 w-24 bg-opacity-90 backdrop-filter-blur' : 'sm:w-16 w-8 bg-opacity-70 backdrop-filter-blur'
+      className={`fixed top-1/2 right-0 w-16 sm:w-32 h-[300px] bg-gray-800 bg-opacity-70 text-white transition-all duration-300 transform -translate-y-1/2 ${
+        isOpen ? 'sm:w-32 w-24 bg-opacity-90 backdrop-blur-sm' : 'sm:w-16 w-8 bg-opacity-70 backdrop-blur-sm'
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
