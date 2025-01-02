@@ -13,24 +13,21 @@ function App() {
   };
 
   return (
-    <>
-      <Navbar onToggle={handleNavbarToggle} />
-      {/* Wrap only the main content, NOT the Navbar */}
-      <div className={`${isNavbarOpen ? 'content-shifted-open' : 'content-shifted'}`}>
+    <div id="app">
+      <Navbar onToggle={handleNavbarToggle} isOpen={isNavbarOpen} />
+      <main className={`${isNavbarOpen ? 'content-shifted-open' : 'content-shifted'} pt-8`}>
         <div className="two-column-container">
           <Hero />
           <Intro />
         </div>
-        <main>
-          <section id="portfolio">
-            <Projects />
-          </section>
-          <section id="contact">
-            <Contact />
-          </section>
-        </main>
-      </div>
-    </>
+        <section id="portfolio">
+          <Projects />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
+      </main>
+    </div>
   );
 }
 
