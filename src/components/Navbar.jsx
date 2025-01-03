@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const Navbar = ({ onToggle }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
 
   const handleMouseEnter = () => {
     setIsOpen(true);
-    onToggle(true);
   };
 
   const handleMouseLeave = () => {
     setIsOpen(false);
-    onToggle(false);
     setHoveredItem(null); // Reset hovered item on mouse leave
   };
 
@@ -74,7 +72,7 @@ const Navbar = ({ onToggle }) => {
       >
         <li className="mb-4">
           <a
-            href="#"
+            href="#hero"
             className="hover:text-blue-400 whitespace-nowrap text-shadow-lg"
             onClick={(e) => {
               e.preventDefault();
@@ -88,7 +86,7 @@ const Navbar = ({ onToggle }) => {
         </li>
         <li className="mb-4">
           <a
-            href="#projects"
+            href="#portfolio"
             className="hover:text-blue-400 whitespace-nowrap text-shadow-lg"
             onClick={(e) => {
               e.preventDefault();

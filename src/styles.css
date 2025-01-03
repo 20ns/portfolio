@@ -10,21 +10,73 @@
   --soft-lavender: #8C8AFF;
 }
 
+/* Ensure html and body take up full height */
+html,
 body {
-  color: var(--light-gray);
-  font-family: 'Arial', sans-serif;
+  height: 100%;
   margin: 0;
-  padding: 0;
 }
 
-#app {
-  background-color: var(--dark-gray);
-  min-height: 100vh;
+/* Make body a flex container */
+body {
   display: flex;
   flex-direction: column;
+  color: var(--light-gray);
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden;
 }
 
-/* Navbar styles */
+/* --- App Container --- */
+#app-container {
+  flex: 1; /* Grow to fill available space */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* --- Root Container --- */
+#root {
+  flex: 1; /* Grow to fill available space */
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Particles Styling --- */
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: transparent;
+}
+
+/* --- Content Styling --- */
+#app {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* --- Main Content --- */
+main {
+  position: relative;
+  background-color: transparent;
+  z-index: 1;
+  margin-top: 50px;
+  margin-right: 70px;
+  transition: margin-right 0.3s ease;
+}
+
+/* Adjust margin when navbar is open */
+nav.nav-open+main {
+  margin-right: 210px;
+}
+
+/* --- Navbar Styles --- */
 nav {
   z-index: 1000;
   background-color: rgba(44, 44, 44, 0.85);
@@ -82,7 +134,6 @@ nav li a:hover {
 /* Navbar open state */
 nav.nav-open {
   width: 200px;
-  background-color: rgba(44, 44, 44, 0.95);
 }
 
 /* Text depth */
@@ -90,17 +141,17 @@ nav ul li a.text-shadow-lg {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Two-column layout */
+/* --- Two-column Layout --- */
 .two-column-container {
   display: flex;
   gap: 40px;
-  padding: 20px; /* Keep the existing horizontal padding */
-  margin-top: 40px; /* Add margin-top here */
+  padding: 20px;
+  margin-top: 50px;
   align-items: flex-start;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  position: relative; /* For the vertical line */
+  position: relative;
 }
 
 /* Vertical line separator */
@@ -111,15 +162,15 @@ nav ul li a.text-shadow-lg {
   bottom: 0;
   left: 50%;
   width: 1px;
-  background-color: var(--light-gray); /* Light gray line */
-  opacity: 0.3; /* Make the line subtle */
+  background-color: var(--light-gray);
+  opacity: 0.3;
 }
-/* Letter animation */
-/* Letter animation */
+
+/* --- Letter Animation --- */
 .letter {
   display: inline-block;
-  opacity: 1; /* Ensure letters are always visible */
-  transform: translateY(0); /* Reset transform */
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -134,16 +185,18 @@ nav ul li a.text-shadow-lg {
     opacity: 0;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
-/* Hero Section Styles */
+
+/* --- Hero Section Styles --- */
 .hero {
   flex: 1;
-  text-align: right; /* Align text to the right (right-to-left) */
-  padding-right: 0px; /* Add padding to avoid overlap with the line */
+  text-align: right;
+  padding-right: 0px;
 }
 
 .hero h1 {
@@ -165,7 +218,7 @@ nav ul li a.text-shadow-lg {
   background-color: var(--electric-cyan);
   width: 25%;
   margin-bottom: 1rem;
-  margin-left: auto; /* Push the line to the right */
+  margin-left: auto;
 }
 
 .hero p {
@@ -175,11 +228,11 @@ nav ul li a.text-shadow-lg {
   font-family: 'Arial', sans-serif;
 }
 
-/* Intro Section Styles */
+/* --- Intro Section Styles --- */
 .intro {
   flex: 1;
-  text-align: left; /* Align text to the left (left-to-right) */
-  padding-left: 20px; /* Add padding to avoid overlap with the line */
+  text-align: left;
+  padding-left: 20px;
 }
 
 .intro p {
@@ -188,7 +241,7 @@ nav ul li a.text-shadow-lg {
   line-height: 1.6;
 }
 
-/* Projects Section Styles */
+/* --- Projects Section Styles --- */
 .projects {
   margin-top: 40px;
   padding: 0 20px;
@@ -210,7 +263,7 @@ nav ul li a.text-shadow-lg {
   line-height: 1.6;
 }
 
-/* Contact Section Styles */
+/* --- Contact Section Styles --- */
 .contact {
   margin-top: 40px;
   padding: 0 20px;
@@ -232,7 +285,7 @@ nav ul li a.text-shadow-lg {
   line-height: 1.6;
 }
 
-/* Responsive adjustments */
+/* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
   .two-column-container {
     flex-direction: column;
@@ -240,16 +293,16 @@ nav ul li a.text-shadow-lg {
   }
 
   .two-column-container::after {
-    display: none; /* Hide the vertical line on smaller screens */
+    display: none;
   }
 
   .hero {
-    text-align: center; /* Center text on smaller screens */
+    text-align: center;
     padding-right: 0;
   }
 
   .intro {
-    text-align: center; /* Center text on smaller screens */
+    text-align: center;
     padding-left: 0;
   }
 
@@ -279,13 +332,19 @@ nav ul li a.text-shadow-lg {
   }
 }
 
-/* Add margin to main content */
-main {
-  margin-right: 70px; /* Adjust this value to control the gap */
-  transition: margin-right 0.3s ease; /* Add a smooth transition */
+/* --- Footer Styles --- */
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--charcoal);
+  flex-shrink: 0;
+  z-index: 1000; /* Ensure footer is above other elements */
 }
 
-/* Adjust margin when navbar is open */
-nav.nav-open + main {
-  margin-right: 210px; /* Adjust this value to control the gap when navbar is open */
+/* Ensure sections are above particles */
+section {
+  position: relative;
+  z-index: 1;
 }
