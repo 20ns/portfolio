@@ -23,7 +23,7 @@ const Hero = () => {
   useEffect(() => {
     if (h1Ref.current) {
       const textWidth = h1Ref.current.scrollWidth;
-      h1Ref.current.style.width = `${textWidth + 10}px`; // Add some extra space
+      h1Ref.current.style.width = `${textWidth + 10}px`;
     }
   }, []); // Run only once on mount
 
