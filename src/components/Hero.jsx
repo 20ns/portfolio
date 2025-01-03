@@ -33,7 +33,8 @@ const Hero = () => {
         {text}
       </h1>
       <h2 className="text-2xl font-bold text-white mt-2">Full Stack Developer</h2>
-      <div className="h-1 bg-cyan-500 w-1/4 my-4"></div>
+      <div className="separator">
+      </div>
       <p className="mt-4 text-lg text-gray-300">
         Passionate developer with a knack for creating efficient and scalable web applications.
       </p>

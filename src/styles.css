@@ -159,8 +159,14 @@ nav ul li a.text-shadow-lg {
   bottom: 0;
   left: 50%;
   width: 1px;
-  background-color: var(--light-gray);
-  opacity: 0.3;
+  background: linear-gradient(
+    to bottom,
+    rgba(224, 224, 224, 0.1),  /* Starting color (light gray, slightly transparent) */
+    rgba(224, 224, 224, 0.8),  /* Middle color (more opaque) */
+    rgba(224, 224, 224, 0.1)   /* Ending color (back to slightly transparent) */
+  );
+  opacity: 0.5; /* Adjust overall opacity if needed */
+  transform: translateX(-50%); /* Center the pseudo-element */
 }
 
 /* --- Letter Animation --- */
@@ -210,12 +216,18 @@ nav ul li a.text-shadow-lg {
   margin-bottom: 1rem;
 }
 
-.hero .h-1 {
+.hero .separator {
+  width: 50%;
   height: 2px;
-  background-color: var(--electric-cyan);
-  width: 25%;
-  margin-bottom: 1rem;
-  margin-left: auto;
+  background: linear-gradient(
+    to right,
+    rgba(0, 255, 255, 0),
+    rgba(0, 255, 255, 0.75),
+    rgba(0, 255, 255, 0)
+  );
+  margin: 20px 0; /* Vertical margin */
+  margin-left: 230px; /* Push to right */
+  margin-right: 25%; /* Adjust this for horizontal positioning */
 }
 
 .hero p {
