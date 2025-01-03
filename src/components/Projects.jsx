@@ -2,22 +2,22 @@ import React from 'react';
 
 const projectsData = [
   {
-    title: 'Project 1',
+    title: 'Portfolio Website',
     imageUrl: 'https://placehold.co/400x300',
     description: 'Short description of Project 1.',
   },
   {
-    title: 'Project 2',
+    title: 'Movie Recommendation',
     imageUrl: 'https://placehold.co/400x300',
     description: 'Short description of Project 2.',
   },
   {
-    title: 'Project 3',
+    title: 'Machine Learning Stocks Algorithm',
     imageUrl: 'https://placehold.co/400x300',
     description: 'Short description of Project 3.',
   },
   {
-    title: 'Project 4',
+    title: 'Java Mini Projects',
     imageUrl: 'https://placehold.co/400x300',
     description: 'Short description of Project 4.',
   },
