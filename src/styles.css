@@ -95,10 +95,12 @@ nav ul li a.text-shadow-lg {
 .two-column-container {
   display: flex;
   gap: 40px;
-  padding: 20px;
+  padding: 20px; /* Keep the existing horizontal padding */
+  margin-top: 40px; /* Add margin-top here */
   align-items: flex-start;
   max-width: 1200px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   position: relative; /* For the vertical line */
 }
 
@@ -118,7 +120,7 @@ nav ul li a.text-shadow-lg {
 .hero {
   flex: 1;
   text-align: right; /* Align text to the right (right-to-left) */
-  padding-right: 40px; /* Add padding to avoid overlap with the line */
+  padding-right: 20px; /* Add padding to avoid overlap with the line */
 }
 
 .hero h1 {
@@ -154,7 +156,7 @@ nav ul li a.text-shadow-lg {
 .intro {
   flex: 1;
   text-align: left; /* Align text to the left (left-to-right) */
-  padding-left: 40px; /* Add padding to avoid overlap with the line */
+  padding-left: 20px; /* Add padding to avoid overlap with the line */
 }
 
 .intro p {
