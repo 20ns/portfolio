@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const Navbar = ({ onToggle }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   const handleMouseEnter = () => {
     setIsOpen(true);
@@ -11,33 +12,51 @@ const Navbar = ({ onToggle }) => {
   const handleMouseLeave = () => {
     setIsOpen(false);
     onToggle(false);
+    setHoveredItem(null); // Reset hovered item on mouse leave
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 600) {
-        setIsOpen(false);
-        onToggle(false);
-      }
-    };
+  const handleItemHover = (item) => {
+    setHoveredItem(item);
+  };
 
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const handleItemLeave = () => {
+    setHoveredItem(null);
+  };
 
   const smoothScroll = (targetId) => {
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
       const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
-
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth',
       });
     }
+  };
+
+  // Helper function to render animated text
+  const renderAnimatedText = (item, text, shortText) => {
+    return (
+      <span className="inline-block overflow-hidden">
+        {isOpen ? (
+          <span className="flex">
+            {text.split('').map((letter, index) => (
+              <span
+                key={index}
+                className={`letter ${
+                  hoveredItem === item ? 'animate-letter' : ''
+                }`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {letter}
+              </span>
+            ))}
+          </span>
+        ) : (
+          shortText
+        )}
+      </span>
+    );
   };
 
   return (
@@ -58,11 +77,13 @@ const Navbar = ({ onToggle }) => {
             href="#"
             className="hover:text-blue-400 whitespace-nowrap text-shadow-lg"
             onClick={(e) => {
-              e.preventDefault(); 
+              e.preventDefault();
               smoothScroll('hero');
             }}
+            onMouseEnter={() => handleItemHover('home')}
+            onMouseLeave={handleItemLeave}
           >
-            {isOpen ? 'Home' : 'H'}
+            {renderAnimatedText('home', 'Home', 'H')}
           </a>
         </li>
         <li className="mb-4">
@@ -71,10 +92,12 @@ const Navbar = ({ onToggle }) => {
             className="hover:text-blue-400 whitespace-nowrap text-shadow-lg"
             onClick={(e) => {
               e.preventDefault();
-              smoothScroll('portfolio'); 
+              smoothScroll('portfolio');
             }}
+            onMouseEnter={() => handleItemHover('projects')}
+            onMouseLeave={handleItemLeave}
           >
-            {isOpen ? 'Projects' : 'P'}
+            {renderAnimatedText('projects', 'Projects', 'P')}
           </a>
         </li>
         <li>
@@ -85,8 +108,10 @@ const Navbar = ({ onToggle }) => {
               e.preventDefault();
               smoothScroll('contact');
             }}
+            onMouseEnter={() => handleItemHover('contact')}
+            onMouseLeave={handleItemLeave}
           >
-            {isOpen ? 'Contact' : 'C'}
+            {renderAnimatedText('contact', 'Contact', 'C')}
           </a>
         </li>
       </ul>
