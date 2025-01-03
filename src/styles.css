@@ -67,8 +67,9 @@ main {
   background-color: transparent;
   z-index: 1;
   margin-top: 50px;
-  margin-right: 70px;
+  margin-right: 70px; /* Adjust this value based on navbar width */
   transition: margin-right 0.3s ease;
+  padding-right: 70px;
 }
 
 /* Adjust margin when navbar is open */
@@ -89,10 +90,6 @@ nav {
   width: 60px;
   transition: width 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-/* Apply frosted glass effect when the navbar is open */
-nav.nav-open {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   background-color: rgba(44, 44, 44, 0.5);
@@ -233,6 +230,10 @@ nav ul li a.text-shadow-lg {
   flex: 1;
   text-align: left;
   padding-left: 20px;
+}
+nav.nav-open + main {
+  margin-right: 210px; /* Adjust this value based on open navbar width */
+  padding-right: 210px;
 }
 
 .intro p {
