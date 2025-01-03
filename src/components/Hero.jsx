@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const Hero = () => {
   const [text, setText] = useState('');
-  const fullText = "Hi I'm, Navpreet";
+  const fullText = "Hii I'm, Navpreet";
   const typingSpeed = 100;
   const h1Ref = useRef(null);
 
