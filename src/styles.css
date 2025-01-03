@@ -91,19 +91,6 @@ nav ul li a.text-shadow-lg {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Main content shifting */
-.content-shifted {
-  margin-right: 60px;
-  transition: margin-right 0.3s ease;
-  flex-grow: 1;
-}
-
-.content-shifted-open {
-  margin-right: 200px;
-  transition: margin-right 0.3s ease;
-  flex-grow: 1;
-}
-
 /* Two-column layout */
 .two-column-container {
   display: flex;
@@ -222,14 +209,6 @@ nav ul li a.text-shadow-lg {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .content-shifted {
-    margin-right: 0;
-  }
-
-  .content-shifted-open {
-    margin-right: 0;
-  }
-
   .two-column-container {
     flex-direction: column;
     gap: 20px;
@@ -273,4 +252,15 @@ nav ul li a.text-shadow-lg {
     bottom: auto;
     top: 0;
   }
+}
+
+/* Add margin to main content */
+main {
+  margin-right: 70px; /* Adjust this value to control the gap */
+  transition: margin-right 0.3s ease; /* Add a smooth transition */
+}
+
+/* Adjust margin when navbar is open */
+nav.nav-open + main {
+  margin-right: 210px; /* Adjust this value to control the gap when navbar is open */
 }
