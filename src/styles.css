@@ -361,3 +361,18 @@ section {
   position: relative;
   z-index: 1;
 }
+
+.subtitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--lime-green);
+  letter-spacing: 0.8px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px solid transparent; /* Transparent border initially */
+  padding-bottom: 5px;
+  transition: border-bottom 0.3s ease-in-out; /* Add transition to border */
+}
+
+.subtitle:hover {
+  border-bottom: 3px solid var(--electric-cyan); /* Border becomes visible on hover */
+}
