@@ -251,25 +251,53 @@ nav.nav-open + main {
 }
 
 /* Projects Section Styles */
-.projects {
-  margin-top: 40px;
+.projects-section {
+  /* Remove fixed max-width */
   padding: 0 20px;
-  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.projects h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--white);
-  margin-bottom: 1rem;
+.project-card {
+  /* Added darker background color, removed animate-slide-in-left and added flex*/
+  display: flex;
+  flex-direction: column;
+  background-color: #2c2c2c;
 }
 
-.projects p {
-  font-size: 1.125rem;
+.projects-section .subtitle {
+    /* Added margin-bottom to projects title */
+  margin-bottom: 4rem;
+}
+
+.project-card:hover {
+    /* Added box-shadow to hover  */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.project-card h3 {
+  /* Changed title text color to light gray */
   color: var(--light-gray);
-  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.project-card p {
+  /* Increased font size and changed text color to a slightly lighter shade of gray */
+  font-size: 1rem;
+  color: var(--soft-lavender);
+  margin-bottom: 1rem; /* Added spacing between description and "Learn More" */
+}
+
+.project-card ul li{
+  /* Changed background, text colors, added spacing */
+  background-color: #0D2740;
+  color: var(--light-gray);
+  margin: 0.3rem;
+}
+
+.grid {
+  /* Make sure there's a grid-gap for smaller screens*/
+  grid-gap: 2rem;
 }
 
 /* Contact Section Styles */
@@ -338,6 +366,9 @@ nav.nav-open + main {
     height: auto;
     bottom: auto;
     top: 0;
+  }
+  .project-card {
+    padding: 1rem; /* Adjust padding on smaller screens */
   }
 }
 
