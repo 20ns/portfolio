@@ -59,7 +59,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-1/2 right-5 sm:right-5 w-16 sm:w-32 h-[300px] bg-gray-800 bg-opacity-70 text-white transition-all duration-300 transform -translate-y-1/2 ${
+      className={`fixed top-1/2 right-5 sm:right-3.5 w-16 sm:w-32 h-[300px] bg-gray-800 bg-opacity-70 text-white transition-all duration-300 transform -translate-y-1/2 ${
         isOpen ? 'sm:w-32 w-24 bg-opacity-90 backdrop-blur-sm' : 'sm:w-16 w-8 bg-opacity-70 backdrop-blur-sm'
       }`}
       onMouseEnter={handleMouseEnter}
