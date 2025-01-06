@@ -1,4 +1,5 @@
 import React from 'react';
+import ml from '../assets/img/ml.png';
 
 const projectsData = [
   {
@@ -15,7 +16,7 @@ const projectsData = [
   },
   {
     title: 'Machine Learning Stocks Algorithm',
-    imageUrl: 'https://placehold.co/400x300',
+    imageUrl: ml,
     description: 'In this project, I developed a machine learning algorithm to analyze and predict stock prices using historical data. The project focused on gathering and preprocessing data, applying various machine learning techniques, and evaluating the model’s performance. I utilized scikit-learn for implementing machine learning algorithms such as regression and classification, as well as to evaluate model accuracy.',
     technologies: ['Python', 'Pandas', 'Scikit-learn'],
   },
