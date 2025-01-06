@@ -38,13 +38,13 @@ const Projects = () => {
   const modalRef = useRef(null);
 
   const openModal = (project) => {
-    setSelectedProject(project);
-    setModalOpen(true);
+    setSelectedProject(project); // Set the project first
+    setTimeout(() => setModalOpen(true), 10); // Slight delay to ensure the DOM updates
   };
 
   const closeModal = () => {
-    setModalOpen(false);
-    setTimeout(() => setSelectedProject(null), 300); // Delay for animation to finish
+    setModalOpen(false); // Hide the modal first
+    setTimeout(() => setSelectedProject(null), 300); // Delay clearing the project until the transition finishes
   };
 
   useEffect(() => {
@@ -93,41 +93,39 @@ const Projects = () => {
       </div>
 
       {/* Modal */}
-      {selectedProject && (
-        <div
-          className={`modal-backdrop ${modalOpen ? 'open' : ''}`}
-          onClick={closeModal}
-          ref={modalRef}
-          tabIndex="-1"
-        >
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3 className="modal-title">{selectedProject.title}</h3>
-              <button className="modal-close-button" onClick={closeModal}>
-                ×
-              </button>
-            </div>
-            <div className="modal-body">
-              <img
-                src={selectedProject.imageUrl}
-                alt={selectedProject.title}
-                className="modal-image"
-              />
-              <p className="modal-description">{selectedProject.description}</p>
-            </div>
-            <div className="modal-footer">
-              <a
-                href={selectedProject.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="github-button"
-              >
-                GitHub Repo
-              </a>
-            </div>
+      <div
+        className={`modal-backdrop ${modalOpen ? 'open' : ''}`}
+        onClick={closeModal}
+        ref={modalRef}
+        tabIndex="-1"
+      >
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-header">
+            <h3 className="modal-title">{selectedProject?.title}</h3>
+            <button className="modal-close-button" onClick={closeModal}>
+              ×
+            </button>
+          </div>
+          <div className="modal-body">
+            <img
+              src={selectedProject?.imageUrl}
+              alt={selectedProject?.title}
+              className="modal-image"
+            />
+            <p className="modal-description">{selectedProject?.description}</p>
+          </div>
+          <div className="modal-footer">
+            <a
+              href={selectedProject?.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="github-button"
+            >
+              GitHub Repo
+            </a>
           </div>
         </div>
-      )}
+      </div>
     </section>
   );
 };

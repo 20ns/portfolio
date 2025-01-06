@@ -404,6 +404,7 @@ section {
 .subtitle:hover {
   border-bottom: 3px solid var(--electric-cyan);
 }
+
 /* Modal Styles */
 .modal-backdrop {
   position: fixed;
@@ -411,11 +412,19 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Dimmed background */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
 }
 
 .modal-content {
@@ -426,15 +435,20 @@ section {
   width: 90%;
   max-height: 80vh;
   overflow-y: auto;
-  position: relative; /* For close button positioning */
-  padding: 2rem;
+  position: relative;
+  padding: 0; /* Remove padding from the modal content */
 }
 
 .modal-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--charcoal);
+  z-index: 10;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(224, 224, 224, 0.1); /* Optional: Add a subtle border */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
 .modal-title {
@@ -456,12 +470,16 @@ section {
   color: var(--electric-cyan);
 }
 
+.modal-body {
+  padding: 1rem;
+}
+
 .modal-image {
   width: 100%;
   height: auto;
   max-height: 300px;
-  object-cover: cover;
-  border-radius: 5px;
+  object-fit: cover;
+  border-radius: 10px;
   margin-bottom: 1rem;
 }
 
@@ -470,16 +488,17 @@ section {
   color: var(--soft-lavender);
   line-height: 1.6;
   margin-bottom: 1rem;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .modal-footer {
+  padding: 1rem;
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
 }
 
 .github-button {
-  background-color: #211F1F; /* GitHub dark color */
+  background-color: #211F1F;
   color: var(--white);
   border: none;
   padding: 0.8rem 1.5rem;
@@ -492,6 +511,7 @@ section {
 .github-button:hover {
   background-color: #444;
 }
+
 
 /* For WebKit browsers */
 ::-webkit-scrollbar {
