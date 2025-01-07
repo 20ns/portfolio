@@ -1,7 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ml from '../assets/img/ml.png';
+import team from '../assets/img/team.png';
 
 const projectsData = [
+  {
+    title: 'Machine Learning Stocks Algorithm',
+    imageUrl: ml,
+    description: 'In this project, I developed a machine learning algorithm to analyze and predict stock prices using historical data. The project focused on gathering and preprocessing data, applying various machine learning techniques, and evaluating the model’s performance. I utilized scikit-learn for implementing machine learning algorithms such as regression and classification, as well as to evaluate model accuracy.',
+    technologies: ['Python', 'Pandas', 'Scikit-learn'],
+    github: 'YOUR_GITHUB_LINK_HERE' // Replace with actual GitHub link
+  },
+  {
+    title: 'Team - Full Stack Development',
+    imageUrl: team,
+    description: 'This ongoing university project involves collaborating with a team of seven members to build a dynamic, fully functional website. The project focuses on delivering an interactive, intuitive, and professional user interface while ensuring strong back-end functionality. My role in the team was both as a team leader and a full-stack developer, contributing to both front-end and back-end development.',
+    technologies: ['Java', 'mySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'],
+    github: 'YOUR_GITHUB_LINK_HERE' // Replace with actual GitHub link
+  },
   {
     title: 'Portfolio Website',
     imageUrl: 'https://placehold.co/400x300',
@@ -14,20 +29,6 @@ const projectsData = [
     imageUrl: 'https://placehold.co/400x300',
     description: 'This project is a full-stack web application designed to provide personalized movie and TV show recommendations using the TMDb API. The backend is built with Flask, which handles user requests and communicates with the TMDb API to fetch relevant data based on user input. The application allows users to search for a movie or TV show, and the system responds with a list of recommendations.',
     technologies: ['Python', 'API', 'Flask', 'JavaScript', 'HTML', 'CSS'],
-    github: 'YOUR_GITHUB_LINK_HERE' // Replace with actual GitHub link
-  },
-  {
-    title: 'Machine Learning Stocks Algorithm',
-    imageUrl: ml,
-    description: 'In this project, I developed a machine learning algorithm to analyze and predict stock prices using historical data. The project focused on gathering and preprocessing data, applying various machine learning techniques, and evaluating the model’s performance. I utilized scikit-learn for implementing machine learning algorithms such as regression and classification, as well as to evaluate model accuracy.',
-    technologies: ['Python', 'Pandas', 'Scikit-learn'],
-    github: 'YOUR_GITHUB_LINK_HERE' // Replace with actual GitHub link
-  },
-  {
-    title: 'Team - Full Stack Development',
-    imageUrl: 'https://placehold.co/400x300',
-    description: 'This ongoing university project involves collaborating with a team of seven members to build a dynamic, fully functional website. The project focuses on delivering an interactive, intuitive, and professional user interface while ensuring strong back-end functionality. My role in the team was both as a team leader and a full-stack developer, contributing to both front-end and back-end development.',
-    technologies: ['Java', 'mySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'],
     github: 'YOUR_GITHUB_LINK_HERE' // Replace with actual GitHub link
   },
 ];
