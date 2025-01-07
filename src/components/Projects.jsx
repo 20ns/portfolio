@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ml from '../assets/img/ml.png';
 import team from '../assets/img/team.png';
+import portfolio from '../assets/img/portfolio.png';
 
 const projectsData = [
   {
@@ -8,28 +9,28 @@ const projectsData = [
     imageUrl: ml,
     description: 'In this project, I developed a machine learning algorithm to analyze and predict stock prices using historical data. The project focused on gathering and preprocessing data, applying various machine learning techniques, and evaluating the model’s performance. I utilized scikit-learn for implementing machine learning algorithms such as regression and classification, as well as to evaluate model accuracy.',
     technologies: ['Python', 'Pandas', 'Scikit-learn'],
-    github: 'YOUR_GITHUB_LINK_HERE' // Replace with actual GitHub link
+    github: 'YOUR_GITHUB_LINK_HERE'
   },
   {
     title: 'Team - Full Stack Development',
     imageUrl: team,
     description: 'This ongoing university project involves collaborating with a team of seven members to build a dynamic, fully functional website. The project focuses on delivering an interactive, intuitive, and professional user interface while ensuring strong back-end functionality. My role in the team was both as a team leader and a full-stack developer, contributing to both front-end and back-end development.',
     technologies: ['Java', 'mySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'],
-    github: 'YOUR_GITHUB_LINK_HERE' // Replace with actual GitHub link
+    github: 'YOUR_GITHUB_LINK_HERE'
   },
   {
     title: 'Portfolio Website',
-    imageUrl: 'https://placehold.co/400x300',
+    imageUrl: portfolio,
     description: 'This portfolio is a testament to my proficiency in building modern web applications. It leverages the power of React for a component-based architecture, resulting in a maintainable and scalable codebase. Vite is employed as the build tool, providing a rapid development environment. The user interface is styled with Tailwind CSS, demonstrating my ability to create responsive and visually appealing designs. ESLint enforces coding standards, while react-tsparticles and its engine, tsparticles, are used to create subtle yet captivating background animations. The project is a demonstration of my skills in JavaScript, responsive design, and my ability to manage complex projects using Git and npm.',
     technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Vite', 'ESLint', 'Git', 'npm'],
-    github: 'YOUR_GITHUB_LINK_HERE' // Replace with actual GitHub link
+    github: 'https://github.com/20ns/portfolio'
   },
   {
     title: 'Movie Recommendation',
     imageUrl: 'https://placehold.co/400x300',
     description: 'This project is a full-stack web application designed to provide personalized movie and TV show recommendations using the TMDb API. The backend is built with Flask, which handles user requests and communicates with the TMDb API to fetch relevant data based on user input. The application allows users to search for a movie or TV show, and the system responds with a list of recommendations.',
     technologies: ['Python', 'API', 'Flask', 'JavaScript', 'HTML', 'CSS'],
-    github: 'YOUR_GITHUB_LINK_HERE' // Replace with actual GitHub link
+    github: 'YOUR_GITHUB_LINK_HERE'
   },
 ];
 
