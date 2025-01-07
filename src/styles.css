@@ -259,10 +259,10 @@ nav.nav-open + main {
 }
 
 .project-card {
-  /* Added darker background color, removed animate-slide-in-left and added flex*/
   display: flex;
   flex-direction: column;
   background-color: #2c2c2c;
+  overflow: hidden;
 }
 
 .projects-section .subtitle {
@@ -535,5 +535,8 @@ section {
 /* For Firefox */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--electric-cyan) rgba(0, 0, 0, 0.2); /* No gradient support */
+  scrollbar-color: var(--electric-cyan) rgba(0, 0, 0, 0.2); 
+}
+.movie-recommendation {
+  object-position: center 90%;
 }

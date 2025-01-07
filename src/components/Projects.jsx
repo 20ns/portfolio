@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ml from '../assets/img/ml.png';
 import team from '../assets/img/team.png';
 import portfolio from '../assets/img/portfolio.png';
+import working from '../assets/img/working.png';
 
 const projectsData = [
   {
@@ -27,10 +28,11 @@ const projectsData = [
   },
   {
     title: 'Movie Recommendation',
-    imageUrl: 'https://placehold.co/400x300',
+    imageUrl: working,
     description: 'This project is a full-stack web application designed to provide personalized movie and TV show recommendations using the TMDb API. The backend is built with Flask, which handles user requests and communicates with the TMDb API to fetch relevant data based on user input. The application allows users to search for a movie or TV show, and the system responds with a list of recommendations.',
     technologies: ['Python', 'API', 'Flask', 'JavaScript', 'HTML', 'CSS'],
-    github: 'YOUR_GITHUB_LINK_HERE'
+    github: 'YOUR_GITHUB_LINK_HERE',
+    className: 'movie-recommendation'
   },
 ];
 
@@ -68,7 +70,7 @@ const Projects = () => {
             <img
               src={project.imageUrl}
               alt={project.title}
-              className="w-full h-48 object-cover rounded-md mb-4"
+              className={`w-full h-48 object-cover rounded-md mb-4 ${project.className || ''}`}
             />
             <h3 className="text-xl font-bold text-gray-200 mb-2">{project.title}</h3>
             <p className="text-gray-300 mb-4 flex-grow">
