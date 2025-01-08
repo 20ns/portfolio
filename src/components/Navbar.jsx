@@ -36,23 +36,34 @@ const Navbar = () => {
   const renderAnimatedText = (item, text, shortText) => {
     return (
       <span className="inline-block overflow-hidden">
-        {isOpen ? (
-          <span className="flex">
-            {text.split('').map((letter, index) => (
+        <span className="flex transition-all duration-500 ease-in-out">
+          {isOpen ? (
+            text.split('').map((letter, index) => (
               <span
                 key={index}
                 className={`letter ${
                   hoveredItem === item ? 'animate-letter' : ''
                 }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
+                style={{
+                  animationDelay: `${index * 0.05}s`,
+                  opacity: isOpen ? 1 : 0,
+                  transition: `opacity 0.3s ease ${index * 0.05}s`,
+                }}
               >
                 {letter}
               </span>
-            ))}
-          </span>
-        ) : (
-          shortText
-        )}
+            ))
+          ) : (
+            <span
+              style={{
+                opacity: isOpen ? 0 : 1,
+                transition: 'opacity 0.3s ease',
+              }}
+            >
+              {shortText}
+            </span>
+          )}
+        </span>
       </span>
     );
   };
