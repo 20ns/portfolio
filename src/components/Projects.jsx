@@ -53,7 +53,7 @@ const projectsData = [
     description: 'This project is a full-stack web application designed to provide personalized movie and TV show recommendations using the TMDb API. The backend is built with Flask, which handles user requests and communicates with the TMDb API to fetch relevant data based on user input. The application allows users to search for a movie or TV show, and the system responds with a list of recommendations.',
     technologies: ['Python', 'API', 'Flask', 'JavaScript', 'HTML', 'CSS'],
     github: 'YOUR_GITHUB_LINK_HERE',
-    className: 'movie-recommendation',
+    className: 'movie-recommendation', // Apply the class here
   },
 ];
 
@@ -88,11 +88,15 @@ const Projects = () => {
             className="project-card bg-gray-800 rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-2xl flex flex-col"
             style={{ animationDelay: `${index * 0.2}s` }}
           >
-            <img
-              src={project.imageUrl}
-              alt={project.title}
-              className={`w-full h-48 object-cover rounded-md mb-4 ${project.className || ''}`}
-            />
+            <div className="overflow-hidden rounded-md mb-4 h-48"> {/* Fixed height and overflow-hidden */}
+              <img
+                src={project.imageUrl}
+                alt={project.title}
+                className={`w-full h-full ${
+                  project.className ? 'object-cover ' + project.className : 'object-contain'
+                } transition-transform duration-300 ease-in-out transform hover:scale-110`}
+              />
+            </div>
             <h3 className="text-xl font-bold text-gray-200 mb-2">{project.title}</h3>
             <p className="text-gray-300 mb-4 flex-grow">
               {project.description.substring(0, 150)}...

@@ -294,6 +294,13 @@ nav.nav-open + main {
   color: var(--light-gray);
   margin: 0.3rem;
 }
+.project-card img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.project-card:hover img {
+  transform: scale(1.1); /* Zoom in by 10% */
+}
 
 .grid {
   /* Make sure there's a grid-gap for smaller screens*/
@@ -538,5 +545,8 @@ html {
   scrollbar-color: var(--electric-cyan) rgba(0, 0, 0, 0.2); 
 }
 .movie-recommendation {
+  object-position: center 90%;
+}
+.team {
   object-position: center 90%;
 }
