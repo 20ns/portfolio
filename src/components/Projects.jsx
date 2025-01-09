@@ -5,12 +5,13 @@ import team from '../assets/img/team.png';
 import portfolio from '../assets/img/portfolio.png';
 import working from '../assets/img/working.png';
 
+// Define colors for each technology
 const technologyColors = {
   Python: 'bg-blue-500',
   Pandas: 'bg-blue-600',
   'Scikit-learn': 'bg-blue-700',
   Java: 'bg-red-500',
-  mySQL: 'bg-red-600',
+  MySQL: 'bg-red-600', // Changed from 'mySQL' to 'MySQL'
   JavaFX: 'bg-red-700',
   PHP: 'bg-purple-500',
   HTML: 'bg-purple-600',
@@ -24,34 +25,40 @@ const technologyColors = {
   npm: 'bg-indigo-700',
   API: 'bg-pink-500',
   Flask: 'bg-pink-600',
+  Unknown: 'bg-gray-600', // Default color for unknown technologies
 };
 
+// Projects data
 const projectsData = [
   {
     title: 'Machine Learning Stocks Algorithm',
     imageUrl: ml,
-    description: 'In this project, I developed a machine learning algorithm to analyze and predict stock prices using historical data. The project focused on gathering and preprocessing data, applying various machine learning techniques, and evaluating the model’s performance. I utilized scikit-learn for implementing machine learning algorithms such as regression and classification, as well as to evaluate model accuracy.',
+    description:
+      'In this project, I developed a machine learning algorithm to analyze and predict stock prices using historical data. The project focused on gathering and preprocessing data, applying various machine learning techniques, and evaluating the model’s performance. I utilized scikit-learn for implementing machine learning algorithms such as regression and classification, as well as to evaluate model accuracy.',
     technologies: ['Python', 'Pandas', 'Scikit-learn'],
     github: 'YOUR_GITHUB_LINK_HERE',
   },
   {
     title: 'Team - Full Stack Development',
     imageUrl: team,
-    description: 'This ongoing university project involves collaborating with a team of seven members to build a dynamic, fully functional website. The project focuses on delivering an interactive, intuitive, and professional user interface while ensuring strong back-end functionality. My role in the team was both as a team leader and a full-stack developer, contributing to both front-end and back-end development.',
-    technologies: ['Java', 'mySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'],
+    description:
+      'This ongoing university project involves collaborating with a team of seven members to build a dynamic, fully functional website. The project focuses on delivering an interactive, intuitive, and professional user interface while ensuring strong back-end functionality. My role in the team was both as a team leader and a full-stack developer, contributing to both front-end and back-end development.',
+    technologies: ['Java', 'MySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'], // Changed from 'mySQL' to 'MySQL'
     github: 'YOUR_GITHUB_LINK_HERE',
   },
   {
     title: 'Portfolio Website',
     imageUrl: portfolio,
-    description: 'This portfolio is a testament to my proficiency in building modern web applications. It leverages the power of React for a component-based architecture, resulting in a maintainable and scalable codebase. Vite is employed as the build tool, providing a rapid development environment. The user interface is styled with Tailwind CSS, demonstrating my ability to create responsive and visually appealing designs. ESLint enforces coding standards, while react-tsparticles and its engine, tsparticles, are used to create subtle yet captivating background animations. The project is a demonstration of my skills in JavaScript, responsive design, and my ability to manage complex projects using Git and npm.',
+    description:
+      'This portfolio is a testament to my proficiency in building modern web applications. It leverages the power of React for a component-based architecture, resulting in a maintainable and scalable codebase. Vite is employed as the build tool, providing a rapid development environment. The user interface is styled with Tailwind CSS, demonstrating my ability to create responsive and visually appealing designs. ESLint enforces coding standards, while react-tsparticles and its engine, tsparticles, are used to create subtle yet captivating background animations. The project is a demonstration of my skills in JavaScript, responsive design, and my ability to manage complex projects using Git and npm.',
     technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Vite', 'ESLint', 'Git', 'npm'],
     github: 'https://github.com/20ns/portfolio',
   },
   {
     title: 'Movie Recommendation',
     imageUrl: working,
-    description: 'This project is a full-stack web application designed to provide personalized movie and TV show recommendations using the TMDb API. The backend is built with Flask, which handles user requests and communicates with the TMDb API to fetch relevant data based on user input. The application allows users to search for a movie or TV show, and the system responds with a list of recommendations.',
+    description:
+      'This project is a full-stack web application designed to provide personalized movie and TV show recommendations using the TMDb API. The backend is built with Flask, which handles user requests and communicates with the TMDb API to fetch relevant data based on user input. The application allows users to search for a movie or TV show, and the system responds with a list of recommendations.',
     technologies: ['Python', 'API', 'Flask', 'JavaScript', 'HTML', 'CSS'],
     github: 'YOUR_GITHUB_LINK_HERE',
     className: 'movie-recommendation',
@@ -63,16 +70,19 @@ const Projects = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const modalRef = useRef(null);
 
+  // Open modal and set the selected project
   const openModal = (project) => {
     setSelectedProject(project);
     setModalOpen(true);
   };
 
+  // Close modal and reset the selected project
   const closeModal = () => {
     setModalOpen(false);
-    setTimeout(() => setSelectedProject(null), 300); // Delay clearing to allow for transition
+    setTimeout(() => setSelectedProject(null), 300);
   };
 
+  // Handle Escape key to close modal
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -126,21 +136,24 @@ const Projects = () => {
             <div className="mt-auto pt-6">
               <h4 className="text-gray-300 font-bold mb-2">Technologies Used:</h4>
               <ul className="flex flex-wrap">
-                {project.technologies.map((tech) => (
-                  <li
-                    key={tech}
-                    className={`${technologyColors[tech] || 'bg-gray-600'} text-gray-200 px-3 py-1 rounded-full text-xs font-semibold mr-2 mb-2`}
-                  >
-                    {tech}
-                  </li>
-                ))}
+                {project.technologies.map((tech) => {
+                  const bgColorClass = technologyColors[tech] || technologyColors['Unknown'];
+                  return (
+                    <li
+                      key={tech}
+                      className={`${bgColorClass} text-gray-200 px-3 py-1 rounded-full text-xs font-semibold mr-2 mb-2`}
+                    >
+                      {tech}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Modal with Portal */}
+      {/* Modal for project details */}
       {selectedProject &&
         ReactDOM.createPortal(
           <div

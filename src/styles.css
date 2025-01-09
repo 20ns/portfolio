@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 /* Root Variables */
@@ -264,31 +265,25 @@ nav.nav-open + main {
 }
 
 .projects-section .subtitle {
-    /* Added margin-bottom to projects title */
   margin-bottom: 4rem;
 }
 
 .project-card:hover {
-    /* Added box-shadow to hover  */
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .project-card h3 {
-  /* Changed title text color to light gray */
   color: var(--light-gray);
   margin-bottom: 0.5rem;
 }
 
 .project-card p {
-  /* Increased font size and changed text color to a slightly lighter shade of gray */
   font-size: 1rem;
   color: var(--soft-lavender);
-  margin-bottom: 1rem; /* Added spacing between description and "Learn More" */
+  margin-bottom: 1rem; 
 }
 
 .project-card ul li{
-  /* Changed background, text colors, added spacing */
-  background-color: #0D2740;
   color: var(--light-gray);
   margin: 0.3rem;
 }
