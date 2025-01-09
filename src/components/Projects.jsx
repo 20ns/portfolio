@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import ml from '../assets/img/ml.png';
 import team from '../assets/img/team.png';
 import portfolio from '../assets/img/portfolio.png';
@@ -53,7 +54,7 @@ const projectsData = [
     description: 'This project is a full-stack web application designed to provide personalized movie and TV show recommendations using the TMDb API. The backend is built with Flask, which handles user requests and communicates with the TMDb API to fetch relevant data based on user input. The application allows users to search for a movie or TV show, and the system responds with a list of recommendations.',
     technologies: ['Python', 'API', 'Flask', 'JavaScript', 'HTML', 'CSS'],
     github: 'YOUR_GITHUB_LINK_HERE',
-    className: 'movie-recommendation', // Apply the class here
+    className: 'movie-recommendation',
   },
 ];
 
@@ -63,19 +64,36 @@ const Projects = () => {
   const modalRef = useRef(null);
 
   const openModal = (project) => {
-    setSelectedProject(project); // Set the project first
-    setTimeout(() => setModalOpen(true), 10); // Slight delay to ensure the DOM updates
+    setSelectedProject(project);
+    setModalOpen(true);
   };
 
   const closeModal = () => {
-    setModalOpen(false); // Hide the modal first
-    setTimeout(() => setSelectedProject(null), 300); // Delay clearing the project until the transition finishes
+    setModalOpen(false);
+    setTimeout(() => setSelectedProject(null), 300); // Delay clearing to allow for transition
   };
 
   useEffect(() => {
-    if (modalOpen && modalRef.current) {
-      modalRef.current.focus();
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    };
+
+    const modalContent = modalRef.current?.querySelector('.modal-content');
+    const readMoreButton = document.activeElement;
+
+    if (modalOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      modalContent?.focus();
     }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      if (!modalOpen && readMoreButton) {
+        readMoreButton.focus();
+      }
+    };
   }, [modalOpen]);
 
   return (
@@ -88,13 +106,11 @@ const Projects = () => {
             className="project-card bg-gray-800 rounded-lg shadow-lg p-6 transition duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-2xl flex flex-col"
             style={{ animationDelay: `${index * 0.2}s` }}
           >
-            <div className="overflow-hidden rounded-md mb-4 h-48"> {/* Fixed height and overflow-hidden */}
+            <div className="overflow-hidden rounded-md mb-4 h-48">
               <img
                 src={project.imageUrl}
                 alt={project.title}
-                className={`w-full h-full ${
-                  project.className ? 'object-cover ' + project.className : 'object-contain'
-                } transition-transform duration-300 ease-in-out transform hover:scale-110`}
+                className={`w-full h-full ${project.className ? 'object-cover ' + project.className : 'object-contain'} transition-transform duration-300 ease-in-out transform hover:scale-110`}
               />
             </div>
             <h3 className="text-xl font-bold text-gray-200 mb-2">{project.title}</h3>
@@ -124,40 +140,44 @@ const Projects = () => {
         ))}
       </div>
 
-      {/* Modal */}
-      <div
-        className={`modal-backdrop ${modalOpen ? 'open' : ''}`}
-        onClick={closeModal}
-        ref={modalRef}
-        tabIndex="-1"
-      >
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <div className="modal-header">
-            <h3 className="modal-title">{selectedProject?.title}</h3>
-            <button className="modal-close-button" onClick={closeModal}>
-              ×
-            </button>
-          </div>
-          <div className="modal-body">
-            <img
-              src={selectedProject?.imageUrl}
-              alt={selectedProject?.title}
-              className="modal-image"
-            />
-            <p className="modal-description">{selectedProject?.description}</p>
-          </div>
-          <div className="modal-footer">
-            <a
-              href={selectedProject?.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="github-button"
-            >
-              GitHub Repo
-            </a>
-          </div>
-        </div>
-      </div>
+      {/* Modal with Portal */}
+      {selectedProject &&
+        ReactDOM.createPortal(
+          <div
+            className={`modal-backdrop ${modalOpen ? 'open' : ''}`}
+            onClick={closeModal}
+            ref={modalRef}
+            tabIndex="-1"
+          >
+            <div className="modal-content" onClick={(e) => e.stopPropagation()} tabIndex="-1">
+              <div className="modal-header">
+                <h3 className="modal-title">{selectedProject.title}</h3>
+                <button className="modal-close-button" onClick={closeModal}>
+                  ×
+                </button>
+              </div>
+              <div className="modal-body">
+                <img
+                  src={selectedProject.imageUrl}
+                  alt={selectedProject.title}
+                  className="modal-image"
+                />
+                <p className="modal-description">{selectedProject.description}</p>
+              </div>
+              <div className="modal-footer">
+                <a
+                  href={selectedProject.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="github-button"
+                >
+                  GitHub Repo
+                </a>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </section>
   );
 };
