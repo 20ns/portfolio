@@ -5,27 +5,84 @@ import team from '../assets/img/team.png';
 import portfolio from '../assets/img/portfolio.png';
 import working from '../assets/img/working.png';
 
-// Define colors for each technology
-const technologyColors = {
-  Python: 'bg-blue-500',
-  Pandas: 'bg-blue-600',
-  'Scikit-learn': 'bg-blue-700',
-  Java: 'bg-red-500',
-  MySQL: 'bg-red-600', // Changed from 'mySQL' to 'MySQL'
-  JavaFX: 'bg-red-700',
-  PHP: 'bg-purple-500',
-  HTML: 'bg-purple-600',
-  CSS: 'bg-purple-700',
-  JavaScript: 'bg-yellow-500',
-  React: 'bg-teal-500',
-  'Tailwind CSS': 'bg-teal-600',
-  Vite: 'bg-teal-700',
-  ESLint: 'bg-indigo-500',
-  Git: 'bg-indigo-600',
-  npm: 'bg-indigo-700',
-  API: 'bg-pink-500',
-  Flask: 'bg-pink-600',
-  Unknown: 'bg-gray-600', // Default color for unknown technologies
+// Define styles for each technology
+const technologyStyles = {
+  Python: {
+    base: 'bg-blue-500 text-white',
+    hover: 'hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500',
+  },
+  Pandas: {
+    base: 'bg-blue-600 text-white',
+    hover: 'hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600',
+  },
+  'Scikit-learn': {
+    base: 'bg-blue-700 text-white',
+    hover: 'hover:bg-blue-800 hover:shadow-lg hover:shadow-blue-700',
+  },
+  Java: {
+    base: 'bg-red-500 text-white',
+    hover: 'hover:bg-red-600 hover:shadow-lg hover:shadow-red-500',
+  },
+  MySQL: {
+    base: 'bg-red-600 text-white',
+    hover: 'hover:bg-red-700 hover:shadow-lg hover:shadow-red-600',
+  },
+  JavaFX: {
+    base: 'bg-red-700 text-white',
+    hover: 'hover:bg-red-800 hover:shadow-lg hover:shadow-red-700',
+  },
+  PHP: {
+    base: 'bg-purple-500 text-white',
+    hover: 'hover:bg-purple-600 hover:shadow-lg hover:shadow-purple-500',
+  },
+  HTML: {
+    base: 'bg-purple-600 text-white',
+    hover: 'hover:bg-purple-700 hover:shadow-lg hover:shadow-purple-600',
+  },
+  CSS: {
+    base: 'bg-purple-700 text-white',
+    hover: 'hover:bg-purple-800 hover:shadow-lg hover:shadow-purple-700',
+  },
+  JavaScript: {
+    base: 'bg-red-800 text-gray-900', // Text color set to dark gray
+    hover: 'hover:bg-yellow-600 hover:shadow-lg hover:shadow-yellow-500', // Only hover background and shadow
+  },
+  React: {
+    base: 'bg-teal-500 text-white',
+    hover: 'hover:bg-teal-600 hover:shadow-lg hover:shadow-teal-500',
+  },
+  'Tailwind CSS': {
+    base: 'bg-teal-600 text-white',
+    hover: 'hover:bg-teal-700 hover:shadow-lg hover:shadow-teal-600',
+  },
+  Vite: {
+    base: 'bg-teal-700 text-white',
+    hover: 'hover:bg-teal-800 hover:shadow-lg hover:shadow-teal-700',
+  },
+  ESLint: {
+    base: 'bg-indigo-500 text-white',
+    hover: 'hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500',
+  },
+  Git: {
+    base: 'bg-indigo-600 text-white',
+    hover: 'hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-600',
+  },
+  npm: {
+    base: 'bg-indigo-700 text-white',
+    hover: 'hover:bg-indigo-800 hover:shadow-lg hover:shadow-indigo-700',
+  },
+  API: {
+    base: 'bg-pink-500 text-white',
+    hover: 'hover:bg-pink-600 hover:shadow-lg hover:shadow-pink-500',
+  },
+  Flask: {
+    base: 'bg-pink-600 text-white',
+    hover: 'hover:bg-pink-700 hover:shadow-lg hover:shadow-pink-600',
+  },
+  Unknown: {
+    base: 'bg-gray-500 text-white',
+    hover: 'hover:bg-gray-600 hover:shadow-lg hover:shadow-gray-500',
+  },
 };
 
 // Projects data
@@ -43,7 +100,7 @@ const projectsData = [
     imageUrl: team,
     description:
       'This ongoing university project involves collaborating with a team of seven members to build a dynamic, fully functional website. The project focuses on delivering an interactive, intuitive, and professional user interface while ensuring strong back-end functionality. My role in the team was both as a team leader and a full-stack developer, contributing to both front-end and back-end development.',
-    technologies: ['Java', 'MySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'], // Changed from 'mySQL' to 'MySQL'
+    technologies: ['Java', 'MySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'],
     github: 'YOUR_GITHUB_LINK_HERE',
   },
   {
@@ -70,19 +127,16 @@ const Projects = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const modalRef = useRef(null);
 
-  // Open modal and set the selected project
   const openModal = (project) => {
     setSelectedProject(project);
     setModalOpen(true);
   };
 
-  // Close modal and reset the selected project
   const closeModal = () => {
     setModalOpen(false);
     setTimeout(() => setSelectedProject(null), 300);
   };
 
-  // Handle Escape key to close modal
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -137,11 +191,11 @@ const Projects = () => {
               <h4 className="text-gray-300 font-bold mb-2">Technologies Used:</h4>
               <ul className="flex flex-wrap">
                 {project.technologies.map((tech) => {
-                  const bgColorClass = technologyColors[tech] || technologyColors['Unknown'];
+                  const style = technologyStyles[tech] || technologyStyles['Unknown'];
                   return (
                     <li
                       key={tech}
-                      className={`${bgColorClass} text-gray-200 px-3 py-1 rounded-full text-xs font-semibold mr-2 mb-2`}
+                      className={`px-3 py-1 rounded-full text-xs font-semibold mr-2 mb-2 transition-all duration-300 ease-in-out ${style.base} ${style.hover}`}
                     >
                       {tech}
                     </li>
@@ -153,7 +207,6 @@ const Projects = () => {
         ))}
       </div>
 
-      {/* Modal for project details */}
       {selectedProject &&
         ReactDOM.createPortal(
           <div
