@@ -5,7 +5,6 @@ import team from '../assets/img/team.png';
 import portfolio from '../assets/img/portfolio.png';
 import working from '../assets/img/working.png';
 
-// Define styles for each technology
 const technologyStyles = {
   Python: {
     base: 'bg-blue-500 text-white',
@@ -44,8 +43,8 @@ const technologyStyles = {
     hover: 'hover:bg-purple-800 hover:shadow-lg hover:shadow-purple-700',
   },
   JavaScript: {
-    base: 'bg-red-800 text-gray-900', // Text color set to dark gray
-    hover: 'hover:bg-yellow-600 hover:shadow-lg hover:shadow-yellow-500', // Only hover background and shadow
+    base: 'bg-red-800 text-gray-900', 
+    hover: 'hover:bg-yellow-600 hover:shadow-lg hover:shadow-yellow-500',
   },
   React: {
     base: 'bg-teal-500 text-white',
@@ -85,7 +84,7 @@ const technologyStyles = {
   },
 };
 
-// Projects data
+
 const projectsData = [
   {
     title: 'Machine Learning Stocks Algorithm',
