@@ -50,17 +50,6 @@ body {
               radial-gradient(circle at 50% 80%, rgba(74, 226, 97, 0.3), transparent 70%), /* Green glow */
               radial-gradient(circle, #0f0f3a, #020d30, #000); /* Main dark gradient */
 }
-/* Particles Styling */
-/* #tsparticles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  background-color: white;
-} */
-
 /* Content Styling */
 #app {
   position: relative;
