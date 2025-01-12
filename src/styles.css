@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 /* Root Variables */
@@ -22,6 +21,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  min-height: 100vh; /* Ensure body takes up full viewport height */
   color: var(--light-gray);
   font-family: 'Arial', sans-serif;
   overflow-x: hidden;
@@ -42,13 +42,16 @@ body {
 }
 
 #tsparticles {
-  position: absolute;
+  position: fixed; /* Use fixed to ensure it covers the entire viewport */
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 30% 40%, rgba(74, 144, 226, 0.5), transparent 60%), /* Blue glow */
-              radial-gradient(circle at 70% 50%, rgba(226, 74, 176, 0.4), transparent 60%), /* Pink glow */
-              radial-gradient(circle at 50% 80%, rgba(74, 226, 97, 0.3), transparent 70%), /* Green glow */
-              radial-gradient(circle, #0f0f3a, #020d30, #000); /* Main dark gradient */
+  top: 0;
+  left: 0;
+  z-index: -1; /* Move it behind all other content */
+  background: radial-gradient(circle at 30% 40%, rgba(74, 144, 226, 0.5), transparent 60%),
+              radial-gradient(circle at 70% 50%, rgba(226, 74, 176, 0.4), transparent 60%),
+              radial-gradient(circle at 50% 80%, rgba(74, 226, 97, 0.3), transparent 70%),
+              radial-gradient(circle, #0f0f3a, #020d30, #000);
 }
 /* Content Styling */
 #app {
@@ -67,6 +70,7 @@ main {
   margin-right: 70px;
   transition: margin-right 0.3s ease;
   padding-right: 70px;
+  flex-grow: 1; /* Allow main content to take up available space */
 }
 
 /* Navbar Open State Adjustment */
@@ -374,13 +378,35 @@ nav.nav-open + main {
 
 /* Footer Styles */
 footer {
-  text-align: 300px;
-  padding: 1rem;
-  color: white;
-  font-family: 'Arial', sans-serif;
-  background-color: var(--charcoal);
+  text-align: center;
+  padding: 0.75rem 1.5rem;
+  color: #999;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  background-color: rgba(44, 44, 44, 0.8) !important;
   flex-shrink: 0;
   z-index: 1000;
+  border-radius: 50px;
+  margin: 1.5rem auto;
+  max-width: 200px;
+  border: 1px solid rgba(204, 204, 204, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 100%;
+  bottom: 90px;
+  margin-bottom: -100px; 
+  left: 30px;
+  transform: translateX(-50%);
+}
+
+footer p {
+  margin: 0;
+  padding: 0;
+}
+
+footer:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px); /* Only vertical transform on hover */
 }
 
 /* Ensure Sections Are Above Particles */
@@ -436,7 +462,7 @@ section {
   max-height: 80vh;
   overflow-y: auto;
   position: relative;
-  padding: 0; /* Remove padding from the modal content */
+  padding: 0;
 }
 
 .modal-header {
@@ -512,7 +538,6 @@ section {
   background-color: #444;
 }
 
-
 /* For WebKit browsers */
 ::-webkit-scrollbar {
   width: 12px;
@@ -551,6 +576,6 @@ html {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1000;
+  z-index: 999;
   background: radial-gradient(circle, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.5) 100%);
 }
