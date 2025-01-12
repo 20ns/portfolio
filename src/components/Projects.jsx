@@ -43,7 +43,7 @@ const technologyStyles = {
     hover: 'hover:bg-purple-800 hover:shadow-lg hover:shadow-purple-700',
   },
   JavaScript: {
-    base: 'bg-red-800 text-gray-900', 
+    base: 'bg-red-800 text-gray-900',
     hover: 'hover:bg-yellow-600 hover:shadow-lg hover:shadow-yellow-500',
   },
   React: {
@@ -151,18 +151,25 @@ const Projects = () => {
     setTimeout(() => setSelectedProject(null), 300);
   };
 
-  // Intersection Observer logic
+  // Intersection Observer logic for animations
   useEffect(() => {
     const projectCards = document.querySelectorAll('.project-card');
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in-up');
+            const index = Array.from(projectCards).indexOf(entry.target);
+            // Apply animation based on index (even or odd)
+            if (index % 2 === 0) {
+              entry.target.classList.add('animate-slide-in-card-left');
+            } else {
+              entry.target.classList.add('animate-slide-in-card-right');
+            }
+            observer.unobserve(entry.target); // Stop observing once animated
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 } // Adjust the threshold as needed
     );
 
     projectCards.forEach((card) => observer.observe(card));
@@ -179,14 +186,18 @@ const Projects = () => {
         {projectsData.map((project, index) => (
           <div
             key={index}
-            className="project-card bg-gray-800 rounded-lg shadow-lg p-6 transition-transform duration-500 ease-in-out opacity-0 transform translate-y-10 flex flex-col"
-            style={{ animationDelay: `${index * 0.2}s` }}
+            className={`project-card bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col opacity-0 ${
+              index % 2 === 0 ? '-translate-x-1/2' : 'translate-x-1/2'
+            }`}
+            style={{ animationDelay: `${index * 0.1}s` }} // Reduced delay
           >
             <div className="overflow-hidden rounded-md mb-4 h-48">
               <img
                 src={project.imageUrl}
                 alt={project.title}
-                className={`w-full h-full ${project.className ? 'object-cover ' + project.className : 'object-contain'} transition-transform duration-300 ease-in-out transform hover:scale-110`}
+                className={`w-full h-full ${
+                  project.className ? 'object-cover ' + project.className : 'object-contain'
+                } transition-transform duration-300 ease-in-out transform hover:scale-110`}
               />
             </div>
             <h3 className="text-xl font-bold text-gray-200 mb-2">{project.title}</h3>
@@ -219,6 +230,7 @@ const Projects = () => {
         ))}
       </div>
 
+      {/* Modal Logic */}
       {selectedProject &&
         ReactDOM.createPortal(
           <div
