@@ -582,5 +582,5 @@ html {
 }
 section, .project-card {
   position: relative;
-  z-index: 1000; /* Now higher than the vignette */
+  z-index: 1000; 
 }
