@@ -126,6 +126,7 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const modalRef = useRef(null);
+  const [animatedProjects, setAnimatedProjects] = useState([]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -153,28 +154,50 @@ const Projects = () => {
     setTimeout(() => setSelectedProject(null), 300);
   };
 
+  // Intersection Observer and initial animation logic
   useEffect(() => {
     const projectCards = document.querySelectorAll('.project-card');
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Array.from(projectCards).indexOf(entry.target);
-            // Apply animation based on index (even or odd)
-            if (index % 2 === 0) {
-              entry.target.classList.add('animate-slide-in-card-left');
-            } else {
-              entry.target.classList.add('animate-slide-in-card-right');
-            }
-            observer.unobserve(entry.target); 
+          const projectTitle = entry.target.querySelector('h3').textContent;
+          const project = projectsData.find((p) => p.title === projectTitle);
+          const index = Array.from(projectCards).indexOf(entry.target);
+
+          if (entry.isIntersecting && !animatedProjects.includes(project.title)) {
+              if (!project.initialAnimation) {
+                  if (index % 2 === 0) {
+                      entry.target.classList.add('animate-slide-in-card-left');
+                    } else {
+                      entry.target.classList.add('animate-slide-in-card-right');
+                    }
+                  setAnimatedProjects((prev) => [...prev, project.title]);
+              }
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.2 } 
+      { threshold: 0.2 }
     );
+      
+    projectCards.forEach((card) => {
+      const projectTitle = card.querySelector('h3').textContent;
+      const project = projectsData.find((p) => p.title === projectTitle);
 
-    projectCards.forEach((card) => observer.observe(card));
-    
+      // Animate immediately if initialAnimation is true
+      if (project.initialAnimation) {
+        const index = Array.from(projectCards).indexOf(card);
+        if (index % 2 === 0) {
+          card.classList.add('animate-slide-in-card-left');
+        } else {
+          card.classList.add('animate-slide-in-card-right');
+        }
+        setAnimatedProjects((prev) => [...prev, project.title]);
+      } else {
+        observer.observe(card);
+      }
+    });
+
     return () => {
       projectCards.forEach((card) => observer.unobserve(card));
     };
@@ -187,10 +210,15 @@ const Projects = () => {
         {projectsData.map((project, index) => (
           <div
             key={index}
-            className={`project-card bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col opacity-0 ${
-              index % 2 === 0 ? '-translate-x-1/2' : 'translate-x-1/2'
+            className={`project-card bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col ${
+              // No initial opacity and transform for initially animated projects
+              !project.initialAnimation
+                ? 'opacity-0' + (index % 2 === 0 ? ' -translate-x-1/2' : ' translate-x-1/2')
+                : ''
             }`}
-            style={{ animationDelay: `${index * 0.1}s` }} // Reduced delay
+            style={{
+              animationDelay: `${!project.initialAnimation ? index * 0.1 : 0}s`,
+            }}
           >
             <div className="overflow-hidden rounded-md mb-4 h-48">
               <img
@@ -231,7 +259,6 @@ const Projects = () => {
         ))}
       </div>
 
-      {/* Modal Logic */}
       {selectedProject &&
         ReactDOM.createPortal(
           <div
