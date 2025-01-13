@@ -92,6 +92,7 @@ const projectsData = [
       'In this project, I developed a machine learning algorithm to analyze and predict stock prices using historical data...',
     technologies: ['Python', 'Pandas', 'Scikit-learn'],
     github: 'YOUR_GITHUB_LINK_HERE',
+    initialAnimation: true,
   },
   {
     title: 'Team - Full Stack Development',
@@ -100,6 +101,7 @@ const projectsData = [
       'This ongoing university project involves collaborating with a team of seven members to build a dynamic, fully functional website...',
     technologies: ['Java', 'MySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'],
     github: 'YOUR_GITHUB_LINK_HERE',
+    initialAnimation: true,
   },
   {
     title: 'Portfolio Website',
@@ -151,7 +153,6 @@ const Projects = () => {
     setTimeout(() => setSelectedProject(null), 300);
   };
 
-  // Intersection Observer logic for animations
   useEffect(() => {
     const projectCards = document.querySelectorAll('.project-card');
     const observer = new IntersectionObserver(
@@ -165,15 +166,15 @@ const Projects = () => {
             } else {
               entry.target.classList.add('animate-slide-in-card-right');
             }
-            observer.unobserve(entry.target); // Stop observing once animated
+            observer.unobserve(entry.target); 
           }
         });
       },
-      { threshold: 0.2 } // Adjust the threshold as needed
+      { threshold: 0.2 } 
     );
 
     projectCards.forEach((card) => observer.observe(card));
-
+    
     return () => {
       projectCards.forEach((card) => observer.unobserve(card));
     };
