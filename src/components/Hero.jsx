@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const Hero = () => {
   const [text, setText] = useState('');
-  const fullText = "Hii I'm, Navpreet";
+  const fullText = "Hi I'm, Navpreet";
   const typingSpeed = 100;
   const h1Ref = useRef(null);
 
@@ -25,19 +25,33 @@ const Hero = () => {
       const textWidth = h1Ref.current.scrollWidth;
       h1Ref.current.style.width = `${textWidth + 10}px`;
     }
-  }, []); // Run only once on mount
+  }, []);
 
   return (
-    <div id="hero" className="hero">
-      <h1 ref={h1Ref} className="text-4xl font-bold text-white">
-        {text}
-      </h1>
-      <h2 className="text-2xl font-bold text-white mt-2">Full Stack Developer</h2>
-      <div className="separator">
+    <div id="hero" className="hero flex flex-col items-end justify-center min-h-[70vh] py-16 px-8">
+      <div className="text-right max-w-2xl">
+        <div className="mb-8">
+          <h1 
+            ref={h1Ref} 
+            className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight"
+          >
+            {text}
+            <span className="animate-pulse ml-1 text-electric-cyan">|</span>
+          </h1>
+          
+          <h2 className="text-2xl md:text-3xl font-bold text-white/90 tracking-wide">
+            Full Stack Developer
+          </h2>
+        </div>
+        
+        <div className="separator w-2/3 ml-auto my-10 opacity-80 transform transition-all duration-300 hover:opacity-100"></div>
+        
+        <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl ml-auto">
+          Passionate developer with a knack for creating 
+          <span className="text-electric-cyan"> efficient</span> and 
+          <span className="text-lime-green"> scalable</span> web applications.
+        </p>
       </div>
-      <p className="mt-4 text-lg text-gray-300">
-        Passionate developer with a knack for creating efficient and scalable web applications.
-      </p>
     </div>
   );
 };
