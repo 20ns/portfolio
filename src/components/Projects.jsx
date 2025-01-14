@@ -101,6 +101,7 @@ const projectsData = [
       'This ongoing university project involves collaborating with a team of seven members to build a dynamic, fully functional website...',
     technologies: ['Java', 'MySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'],
     github: 'YOUR_GITHUB_LINK_HERE',
+    className: 'team',
     initialAnimation: true,
   },
   {
@@ -110,6 +111,7 @@ const projectsData = [
       'This portfolio is a testament to my proficiency in building modern web applications...',
     technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Vite', 'ESLint', 'Git', 'npm'],
     github: 'https://github.com/20ns/portfolio',
+    className: 'portfolio',
   },
   {
     title: 'Movie Recommendation',
