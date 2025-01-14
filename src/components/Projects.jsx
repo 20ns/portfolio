@@ -4,6 +4,8 @@ import ml from '../assets/img/ml.png';
 import team from '../assets/img/team.png';
 import portfolio from '../assets/img/portfolio.png';
 import working from '../assets/img/working.png';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const technologyStyles = {
   Python: {
@@ -70,6 +72,10 @@ const technologyStyles = {
     base: 'bg-indigo-700 text-white',
     hover: 'hover:bg-indigo-800 hover:shadow-lg hover:shadow-indigo-700',
   },
+  'react-tsparticles': {
+    base: 'bg-green-500 text-white', // Example color - choose one that fits your scheme
+    hover: 'hover:bg-green-600 hover:shadow-lg hover:shadow-green-500',
+  },
   API: {
     base: 'bg-pink-500 text-white',
     hover: 'hover:bg-pink-600 hover:shadow-lg hover:shadow-pink-500',
@@ -105,26 +111,35 @@ const projectsData = [
     initialAnimation: true,
   },
   {
-      title: 'Portfolio Website',
-      imageUrl: portfolio,
-      description: `This portfolio is a testament to my proficiency in building modern web applications. It's a fully responsive and dynamic personal portfolio website designed to showcase my skills, projects, and experience. Built using React as the core framework and styled with Tailwind CSS, the website provides an engaging and interactive user experience across all devices.
-  
-  **Key Features:**
-  
-  *   **Dynamic Project Showcase:** Implemented a dedicated project section featuring interactive modals. Each modal provides detailed information about individual projects, including comprehensive descriptions, technology stack breakdowns, and direct links to the corresponding GitHub repositories for code review.
-  *   **Engaging User Interface:** Utilized React hooks, specifically \`useState\` and \`useEffect\`, to manage component state, handle side effects, and create subtle yet effective animations. These include a captivating typing effect in the hero section that draws visitors in and smooth slide-in animations for project cards, enhancing visual appeal and user engagement.
-  *   **Visually Appealing Background:** Integrated the \`react-tsparticles\` library to create a dynamic and visually stunning particle background. This adds a layer of sophistication and modernity to the website's aesthetic.
-  *   **Custom Navigation with Smooth Scrolling:** Designed a custom navigation bar that allows for seamless navigation between different sections of the website. Implemented smooth scrolling functionality to enhance user experience and incorporated an animated text effect on hover for interactive feedback.
-  *   **Responsive Design:** Prioritized responsiveness throughout the development process, ensuring that the website adapts flawlessly to various screen sizes and devices, from desktops to tablets and smartphones. This provides an optimal viewing experience for all users.
-  *   **Hybrid Styling Approach:** Employed a strategic combination of Tailwind CSS and custom CSS. Tailwind CSS was used for its utility-first approach to rapidly build the layout and core styles, while custom CSS was implemented for more specific design requirements and unique animations. Extended the default Tailwind CSS theme with custom animations and keyframes for a personalized touch.
-  *   **Modular and Reusable Code:** Structured the project using reusable React components, such as \`Navbar\`, \`Hero\`, \`Intro\`, \`Projects\`, and \`Contact\`. This modular approach promotes code maintainability, reusability, and scalability.
-  *   **Two-Column Layout:** Organized the main content area using a two-column layout, improving readability and providing a visually balanced presentation of information.
-  *   **Easy Contact:** Included a dedicated contact section with direct links to my LinkedIn profile, GitHub repository, and email address, making it easy for visitors to connect and learn more.
-  *   **Accessibility and SEO Optimized:** Built the website with accessibility in mind, utilizing semantic HTML elements and ensuring clear navigation. Implemented best practices for Search Engine Optimization (SEO) to improve the website's visibility and ranking on search engine results pages.`,
-      technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Vite', 'ESLint', 'Git', 'npm', 'react-tsparticles'],
-      github: 'https://github.com/20ns/portfolio',
-      className: 'portfolio',
-    },
+    title: 'Portfolio Website',
+    imageUrl: portfolio,
+    description: `This portfolio is a testament to my proficiency in building modern web applications. It's a fully responsive and dynamic personal portfolio website designed to showcase my skills, projects, and experience. Built using React as the core framework and styled with Tailwind CSS, the website provides an engaging and interactive user experience across all devices.
+
+**Key Features:**
+
+*   **Dynamic Project Showcase:** Implemented a dedicated project section featuring interactive modals. Each modal provides detailed information about individual projects, including comprehensive descriptions, technology stack breakdowns, and direct links to the corresponding GitHub repositories for code review.
+*   **Engaging User Interface:** Utilized React hooks, specifically \`useState\` and \`useEffect\`, to manage component state, handle side effects, and create subtle yet effective animations. These include a captivating typing effect in the hero section that draws visitors in and smooth slide-in animations for project cards, enhancing visual appeal and user engagement.
+*   **Visually Appealing Background:** Integrated the \`react-tsparticles\` library to create a dynamic and visually stunning particle background. This adds a layer of sophistication and modernity to the website's aesthetic.
+*   **Custom Navigation with Smooth Scrolling:** Designed a custom navigation bar that allows for seamless navigation between different sections of the website. Implemented smooth scrolling functionality to enhance user experience and incorporated an animated text effect on hover for interactive feedback.
+*   **Responsive Design:** Prioritized responsiveness throughout the development process, ensuring that the website adapts flawlessly to various screen sizes and devices, from desktops to tablets and smartphones. This provides an optimal viewing experience for all users.
+*   **Hybrid Styling Approach:** Employed a strategic combination of Tailwind CSS and custom CSS. Tailwind CSS was used for its utility-first approach to rapidly build the layout and core styles, while custom CSS was implemented for more specific design requirements and unique animations. Extended the default Tailwind CSS theme with custom animations and keyframes for a personalized touch.
+*   **Modular and Reusable Code:** Structured the project using reusable React components, such as \`Navbar\`, \`Hero\`, \`Intro\`, \`Projects\`, and \`Contact\`. This modular approach promotes code maintainability, reusability, and scalability.
+*   **Two-Column Layout:** Organized the main content area using a two-column layout, improving readability and providing a visually balanced presentation of information.
+*   **Easy Contact:** Included a dedicated contact section with direct links to my LinkedIn profile, GitHub repository, and email address, making it easy for visitors to connect and learn more.
+*   **Accessibility and SEO Optimized:** Built the website with accessibility in mind, utilizing semantic HTML elements and ensuring clear navigation. Implemented best practices for Search Engine Optimization (SEO) to improve the website's visibility and ranking on search engine results pages.`,
+    technologies: [
+      'React',
+      'Tailwind CSS',
+      'JavaScript',
+      'Vite',
+      'ESLint',
+      'Git',
+      'npm',
+      'react-tsparticles',
+    ],
+    github: 'https://github.com/20ns/portfolio',
+    className: 'portfolio',
+  },
   {
     title: 'Movie Recommendation',
     imageUrl: working,
@@ -179,21 +194,21 @@ const Projects = () => {
           const index = Array.from(projectCards).indexOf(entry.target);
 
           if (entry.isIntersecting && !animatedProjects.includes(project.title)) {
-              if (!project.initialAnimation) {
-                  if (index % 2 === 0) {
-                      entry.target.classList.add('animate-slide-in-card-left');
-                    } else {
-                      entry.target.classList.add('animate-slide-in-card-right');
-                    }
-                  setAnimatedProjects((prev) => [...prev, project.title]);
+            if (!project.initialAnimation) {
+              if (index % 2 === 0) {
+                entry.target.classList.add('animate-slide-in-card-left');
+              } else {
+                entry.target.classList.add('animate-slide-in-card-right');
               }
+              setAnimatedProjects((prev) => [...prev, project.title]);
+            }
             observer.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.2 }
     );
-      
+
     projectCards.forEach((card) => {
       const projectTitle = card.querySelector('h3').textContent;
       const project = projectsData.find((p) => p.title === projectTitle);
@@ -294,7 +309,9 @@ const Projects = () => {
                   alt={selectedProject.title}
                   className="modal-image"
                 />
-                <p className="modal-description">{selectedProject.description}</p>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} className="modal-description">
+                  {selectedProject.description}
+                </ReactMarkdown>
               </div>
               <div className="modal-footer">
                 <a
