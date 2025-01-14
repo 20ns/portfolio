@@ -45,7 +45,7 @@ const technologyStyles = {
     hover: 'hover:bg-purple-800 hover:shadow-lg hover:shadow-purple-700',
   },
   JavaScript: {
-    base: 'bg-red-800 text-gray-900',
+    base: 'bg-yellow-500 text-gray-900',
     hover: 'hover:bg-yellow-600 hover:shadow-lg hover:shadow-yellow-500',
   },
   React: {
@@ -73,7 +73,7 @@ const technologyStyles = {
     hover: 'hover:bg-indigo-800 hover:shadow-lg hover:shadow-indigo-700',
   },
   'react-tsparticles': {
-    base: 'bg-green-500 text-white', // Example color - choose one that fits your scheme
+    base: 'bg-green-500 text-white',
     hover: 'hover:bg-green-600 hover:shadow-lg hover:shadow-green-500',
   },
   API: {
@@ -118,7 +118,7 @@ const projectsData = [
 
 This project demonstrates my proficiency in applying machine learning techniques to analyze complex financial data and make informed predictions. It highlights my ability to work with large datasets, implement various algorithms, evaluate model performance, and interpret results using visualizations.`,
     technologies: ['Python', 'Pandas', 'Scikit-learn'],
-    github: 'YOUR_GITHUB_LINK_HERE',
+    github: 'YOUR_GITHUB_LINK_HERE', // Replace with your actual GitHub link
     initialAnimation: true,
   },
   {
@@ -137,7 +137,7 @@ This project demonstrates my proficiency in applying machine learning techniques
 
 This project showcases my ability to work effectively in a team-based environment, contributing to the development of a high-performing, dynamic website using **HTML5**, **Python**, and **MySQL**. My efforts are focused on not only making the website functional but also ensuring its efficiency and responsiveness.`,
     technologies: ['Java', 'MySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'],
-    github: 'YOUR_GITHUB_LINK_HERE',
+    github: 'YOUR_GITHUB_LINK_HERE', // Replace with your actual GitHub link
     className: 'team',
     initialAnimation: true,
   },
@@ -199,7 +199,7 @@ This project showcases my ability to work effectively in a team-based environmen
 
 This project demonstrates my ability to develop full-stack web applications and integrate external APIs. While still in development, it showcases my skills in both frontend and backend technologies, as well as my commitment to creating user-focused and intelligent systems. I am excited to continue developing this project and implementing advanced features to further enhance its functionality and user experience.`,
     technologies: ['Python', 'API', 'Flask', 'JavaScript', 'HTML', 'CSS'],
-    github: 'YOUR_GITHUB_LINK_HERE',
+    github: 'YOUR_GITHUB_LINK_HERE', // Replace with your actual GitHub link
     className: 'movie-recommendation',
   },
 ];
@@ -293,7 +293,6 @@ const Projects = () => {
           <div
             key={index}
             className={`project-card bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col ${
-              // No initial opacity and transform for initially animated projects
               !project.initialAnimation
                 ? 'opacity-0' + (index % 2 === 0 ? ' -translate-x-1/2' : ' translate-x-1/2')
                 : ''
@@ -349,29 +348,47 @@ const Projects = () => {
             ref={modalRef}
             tabIndex="-1"
           >
-            <div className="modal-content" onClick={(e) => e.stopPropagation()} tabIndex="-1">
+            <div
+              className={`modal-content ${modalOpen ? 'open' : ''}`}
+              onClick={(e) => e.stopPropagation()}
+              tabIndex="-1"
+            >
               <div className="modal-header">
                 <h3 className="modal-title">{selectedProject.title}</h3>
-                <button className="modal-close-button" onClick={closeModal}>
+                <button className="modal-close" onClick={closeModal}>
                   ×
                 </button>
               </div>
               <div className="modal-body">
-                <img
-                  src={selectedProject.imageUrl}
-                  alt={selectedProject.title}
-                  className="modal-image"
-                />
-                <ReactMarkdown remarkPlugins={[remarkGfm]} className="modal-description">
-                  {selectedProject.description}
-                </ReactMarkdown>
+                <div className="modal-image-container">
+                  <img src={selectedProject.imageUrl} alt={selectedProject.title} className="modal-image" />
+                </div>
+                <div className="modal-section">
+                  <h4 className="modal-section-title">Project Overview</h4>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} className="modal-description">
+                    {selectedProject.description}
+                  </ReactMarkdown>
+                </div>
+                <div className="modal-section">
+                  <h4 className="modal-section-title">Technologies Used</h4>
+                  <ul className="modal-tech-list">
+                    {selectedProject.technologies.map((tech) => {
+                      const style = technologyStyles[tech] || technologyStyles['Unknown'];
+                      return (
+                        <li key={tech} className={`modal-tech-item ${style.base} ${style.hover}`}>
+                          {tech}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
               <div className="modal-footer">
                 <a
                   href={selectedProject.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="github-button"
+                  className="modal-button primary"
                 >
                   GitHub Repo
                 </a>
