@@ -211,6 +211,8 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [animatedProjects, setAnimatedProjects] = useState([]);
+  const [visibleSection, setVisibleSection] = useState(false);
+  const sectionRef = useRef(null);
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -229,6 +231,62 @@ const Projects = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [modalOpen]);
 
+  // Section visibility observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisibleSection(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Project cards animation observer
+  useEffect(() => {
+    const projectCards = document.querySelectorAll('.project-card');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const card = entry.target;
+            const projectTitle = card.querySelector('h3').textContent;
+            const project = projectsData.find((p) => p.title === projectTitle);
+            const index = Array.from(projectCards).indexOf(card);
+
+            if (!animatedProjects.includes(project.title)) {
+              if (index % 2 === 0) {
+                card.classList.add('animate-slide-in-card-left');
+              } else {
+                card.classList.add('animate-slide-in-card-right');
+              }
+
+              // Animate tech stack tags
+              const tags = card.querySelectorAll('.tech-tag');
+              tags.forEach((tag, i) => {
+                tag.style.transitionDelay = `${(index * 200) + (i * 50)}ms`;
+                tag.classList.add('opacity-100', 'scale-100');
+              });
+
+              setAnimatedProjects(prev => [...prev, project.title]);
+            }
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    projectCards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, [animatedProjects]);
+
   const openModal = (project) => {
     setSelectedProject(project);
     setModalOpen(true);
@@ -239,81 +297,41 @@ const Projects = () => {
     setTimeout(() => setSelectedProject(null), 300);
   };
 
-  // Intersection Observer and initial animation logic
-  useEffect(() => {
-    const projectCards = document.querySelectorAll('.project-card');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const projectTitle = entry.target.querySelector('h3').textContent;
-          const project = projectsData.find((p) => p.title === projectTitle);
-          const index = Array.from(projectCards).indexOf(entry.target);
-
-          if (entry.isIntersecting && !animatedProjects.includes(project.title)) {
-            if (!project.initialAnimation) {
-              if (index % 2 === 0) {
-                entry.target.classList.add('animate-slide-in-card-left');
-              } else {
-                entry.target.classList.add('animate-slide-in-card-right');
-              }
-              setAnimatedProjects((prev) => [...prev, project.title]);
-            }
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    projectCards.forEach((card) => {
-      const projectTitle = card.querySelector('h3').textContent;
-      const project = projectsData.find((p) => p.title === projectTitle);
-
-      // Animate immediately if initialAnimation is true
-      if (project.initialAnimation) {
-        const index = Array.from(projectCards).indexOf(card);
-        if (index % 2 === 0) {
-          card.classList.add('animate-slide-in-card-left');
-        } else {
-          card.classList.add('animate-slide-in-card-right');
-        }
-        setAnimatedProjects((prev) => [...prev, project.title]);
-      } else {
-        observer.observe(card);
-      }
-    });
-
-    return () => {
-      projectCards.forEach((card) => observer.unobserve(card));
-    };
-  }, []);
-
   return (
-    <section className="projects-section px-4 py-20 bg-transparent" id="projects">
-      <h2 className="text-4xl font-bold text-center mb-12 subtitle">
+    <section
+      ref={sectionRef}
+      className="projects-section px-4 py-20 bg-transparent relative"
+      id="projects"
+    >
+      <h2
+        className={`text-4xl font-bold text-center mb-12 subtitle transform transition-all duration-700 ${
+          visibleSection ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+        }`}
+      >
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-      Featured Projects
+          Featured Projects
         </span>
       </h2>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
         {projectsData.map((project, index) => (
           <div
             key={index}
-            className={`project-card bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-xl 
-              hover:shadow-2xl transition-all duration-300 p-6 flex flex-col
-              ${!project.initialAnimation ? 'opacity-0' + (index % 2 === 0 ? ' -translate-x-1/2' : ' translate-x-1/2') : ''}`}
-            style={{ animationDelay: `${!project.initialAnimation ? index * 0.1 : 0}s` }}
+            className={`project-card bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-xl
+              hover:shadow-2xl transition-all duration-500 p-6 flex flex-col opacity-0
+              transform ${index % 2 === 0 ? '-translate-x-1/2' : 'translate-x-1/2'}`}
           >
-            {/* Image Container */}
+            {/* Image container */}
             <div className="group relative overflow-hidden rounded-lg mb-6 h-56">
               <img
                 src={project.imageUrl}
                 alt={project.title}
                 className={`w-full h-full ${
                   project.className ? 'object-cover ' + project.className : 'object-contain'
-                } transition-all duration-500 ease-out group-hover:scale-110`}
+                } transition-all duration-700 ease-out group-hover:scale-110`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent 
+                opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
 
             {/* Content */}
@@ -331,7 +349,6 @@ const Projects = () => {
                 {project.description.split('\n')[0]}
               </p>
 
-              {/* Tech Stack */}
               <div className="space-y-3 mb-6">
                 <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
                   Tech Stack
@@ -342,8 +359,9 @@ const Projects = () => {
                     return (
                       <span
                         key={tech}
-                        className={`px-3 py-1 rounded-full text-xs font-medium 
-                          transition-all duration-300 ${style.base} ${style.hover}`}
+                        className={`tech-tag px-3 py-1 rounded-full text-xs font-medium
+                          transition-all duration-300 opacity-0 scale-90
+                          ${style.base} ${style.hover}`}
                       >
                         {tech}
                       </span>
@@ -352,12 +370,12 @@ const Projects = () => {
                 </div>
               </div>
 
-              {/* Actions */}
               <div className="flex gap-4 mt-auto">
                 <button
                   onClick={() => openModal(project)}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 
-                    bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-300"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2
+                    bg-blue-500 hover:bg-blue-600 text-white rounded-lg
+                    transition-all duration-300 hover:translate-y-[-2px]"
                 >
                   <Code size={18} />
                   View Details
@@ -366,8 +384,9 @@ const Projects = () => {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg 
-                    bg-gray-700 hover:bg-gray-600 transition-colors duration-300"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg
+                    bg-gray-700 hover:bg-gray-600 transition-all duration-300
+                    hover:translate-y-[-2px]"
                 >
                   <Github size={20} />
                 </a>
@@ -377,33 +396,84 @@ const Projects = () => {
         ))}
       </div>
 
-      {/* Enhanced Modal */}
-      {selectedProject && ReactDOM.createPortal(
-        <div className={`modal-backdrop ${modalOpen ? 'open' : ''}`} onClick={closeModal}>
-          <div className={`modal-content ${modalOpen ? 'open' : ''}`} onClick={(e) => e.stopPropagation()} tabIndex="-1">
-              <div className="modal-header">
-                <h3 className="modal-title">{selectedProject.title}</h3>
-                <button className="modal-close" onClick={closeModal}>
-                  ×
+      {/* Modal code */}
+      {selectedProject &&
+        ReactDOM.createPortal(
+          <div
+            className={`fixed inset-0 z-50 flex items-center justify-center 
+              bg-black bg-opacity-75 transition-opacity ${
+                modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+            onClick={closeModal}
+            ref={modalRef}
+          >
+            <div
+              className={`bg-gray-900 rounded-xl shadow-lg p-8 max-w-4xl w-full 
+                overflow-auto transition-all duration-300 ${
+                  modalOpen ? 'scale-100' : 'scale-95'
+                }`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-3xl font-bold text-white">
+                  {selectedProject.title}
+                </h3>
+                <button
+                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                  onClick={closeModal}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-8 w-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
                 </button>
               </div>
+
               <div className="modal-body">
-                <div className="modal-image-container">
-                  <img src={selectedProject.imageUrl} alt={selectedProject.title} className="modal-image" />
+                <div className="mb-6">
+                  <img
+                    src={selectedProject.imageUrl}
+                    alt={selectedProject.title}
+                    className="w-full h-auto rounded-lg"
+                  />
                 </div>
-                <div className="modal-section">
-                  <h4 className="modal-section-title">Project Overview</h4>
-                  <ReactMarkdown remarkPlugins={[remarkGfm]} className="modal-description">
+                <div className="mb-6">
+                  <h4 className="text-xl font-semibold text-white mb-3">
+                    Project Overview
+                  </h4>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    className="text-gray-300"
+                  >
                     {selectedProject.description}
                   </ReactMarkdown>
                 </div>
-                <div className="modal-section">
-                  <h4 className="modal-section-title">Technologies Used</h4>
-                  <ul className="modal-tech-list">
+                <div className="mb-6">
+                  <h4 className="text-xl font-semibold text-white mb-3">
+                    Technologies Used
+                  </h4>
+                  <ul className="flex flex-wrap gap-2">
                     {selectedProject.technologies.map((tech) => {
-                      const style = technologyStyles[tech] || technologyStyles['Unknown'];
+                      const style =
+                        technologyStyles[tech] || technologyStyles['Unknown'];
                       return (
-                        <li key={tech} className={`modal-tech-item ${style.base} ${style.hover}`}>
+                        <li
+                          key={tech}
+                          className={`px-3 py-1 rounded-full text-xs font-medium 
+                            transition-all duration-300 ${style.base} ${
+                            style.hover
+                          }`}
+                        >
                           {tech}
                         </li>
                       );
@@ -411,20 +481,21 @@ const Projects = () => {
                   </ul>
                 </div>
               </div>
-              <div className="modal-footer">
+              <div className="mt-8">
                 <a
                   href={selectedProject.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="modal-button primary"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold 
+                    py-3 px-6 rounded-lg transition-all duration-300"
                 >
                   GitHub Repo
                 </a>
               </div>
             </div>
-        </div>,
-        document.body
-      )}
+          </div>,
+          document.body
+        )}
     </section>
   );
 };
