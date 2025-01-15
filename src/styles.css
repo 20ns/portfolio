@@ -690,10 +690,7 @@ html {
 .movie-recommendation {
   object-position: center 90%;
 }
-.team {
-  object-position: center 35%;
-  transform: scale(2);
-}
+
 .portfolio{
   object-position: center 60%;
 }

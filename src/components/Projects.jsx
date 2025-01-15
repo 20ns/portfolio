@@ -6,6 +6,7 @@ import portfolio from '../assets/img/portfolio.png';
 import working from '../assets/img/working.png';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Github, Code } from 'lucide-react';
 
 const technologyStyles = {
   Python: {
@@ -170,6 +171,7 @@ This project showcases my ability to work effectively in a team-based environmen
     ],
     github: 'https://github.com/20ns/portfolio',
     className: 'portfolio',
+    initialAnimation: false
   },
   {
     title: 'Movie Recommendation',
@@ -201,14 +203,15 @@ This project demonstrates my ability to develop full-stack web applications and 
     technologies: ['Python', 'API', 'Flask', 'JavaScript', 'HTML', 'CSS'],
     github: 'YOUR_GITHUB_LINK_HERE', // Replace with your actual GitHub link
     className: 'movie-recommendation',
+    initialAnimation: false
   },
 ];
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const modalRef = useRef(null);
   const [animatedProjects, setAnimatedProjects] = useState([]);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -287,72 +290,95 @@ const Projects = () => {
 
   return (
     <section className="projects-section px-4 py-20 bg-transparent" id="projects">
-      <h2 className="text-3xl font-bold text-center mb-10 subtitle">Projects</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <h2 className="text-4xl font-bold text-center mb-12 subtitle">
+        Featured Projects
+      </h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
         {projectsData.map((project, index) => (
           <div
             key={index}
-            className={`project-card bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col ${
-              !project.initialAnimation
-                ? 'opacity-0' + (index % 2 === 0 ? ' -translate-x-1/2' : ' translate-x-1/2')
-                : ''
-            }`}
-            style={{
-              animationDelay: `${!project.initialAnimation ? index * 0.1 : 0}s`,
-            }}
+            className={`project-card bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-xl 
+              hover:shadow-2xl transition-all duration-300 p-6 flex flex-col
+              ${!project.initialAnimation ? 'opacity-0' + (index % 2 === 0 ? ' -translate-x-1/2' : ' translate-x-1/2') : ''}`}
+            style={{ animationDelay: `${!project.initialAnimation ? index * 0.1 : 0}s` }}
           >
-            <div className="overflow-hidden rounded-md mb-4 h-48">
+            {/* Image Container */}
+            <div className="group relative overflow-hidden rounded-lg mb-6 h-56">
               <img
                 src={project.imageUrl}
                 alt={project.title}
                 className={`w-full h-full ${
                   project.className ? 'object-cover ' + project.className : 'object-contain'
-                } transition-transform duration-300 ease-in-out transform hover:scale-110`}
+                } transition-all duration-500 ease-out group-hover:scale-110`}
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <h3 className="text-xl font-bold text-gray-200 mb-2">{project.title}</h3>
-            <p className="text-gray-300 mb-4 flex-grow">
-              {project.description.substring(0, 150)}...
-            </p>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => openModal(project)}
-            >
-              Read More
-            </button>
-            <div className="mt-auto pt-6">
-              <h4 className="text-gray-300 font-bold mb-2">Technologies Used:</h4>
-              <ul className="flex flex-wrap">
-                {project.technologies.map((tech) => {
-                  const style = technologyStyles[tech] || technologyStyles['Unknown'];
-                  return (
-                    <li
-                      key={tech}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold mr-2 mb-2 transition-all duration-300 ease-in-out ${style.base} ${style.hover}`}
-                    >
-                      {tech}
-                    </li>
-                  );
-                })}
-              </ul>
+
+            {/* Content */}
+            <div className="flex-grow flex flex-col">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-2xl font-bold text-white">{project.title}</h3>
+                {project.status && (
+                  <span className="px-3 py-1 text-xs font-semibold rounded-full bg-green-500/20 text-green-400">
+                    {project.status}
+                  </span>
+                )}
+              </div>
+
+              <p className="text-gray-300 mb-6 line-clamp-3">
+                {project.description.split('\n')[0]}
+              </p>
+
+              {/* Tech Stack */}
+              <div className="space-y-3 mb-6">
+                <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
+                  Tech Stack
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => {
+                    const style = technologyStyles[tech] || technologyStyles['Unknown'];
+                    return (
+                      <span
+                        key={tech}
+                        className={`px-3 py-1 rounded-full text-xs font-medium 
+                          transition-all duration-300 ${style.base} ${style.hover}`}
+                      >
+                        {tech}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-4 mt-auto">
+                <button
+                  onClick={() => openModal(project)}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 
+                    bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors duration-300"
+                >
+                  <Code size={18} />
+                  View Details
+                </button>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg 
+                    bg-gray-700 hover:bg-gray-600 transition-colors duration-300"
+                >
+                  <Github size={20} />
+                </a>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      {selectedProject &&
-        ReactDOM.createPortal(
-          <div
-            className={`modal-backdrop ${modalOpen ? 'open' : ''}`}
-            onClick={closeModal}
-            ref={modalRef}
-            tabIndex="-1"
-          >
-            <div
-              className={`modal-content ${modalOpen ? 'open' : ''}`}
-              onClick={(e) => e.stopPropagation()}
-              tabIndex="-1"
-            >
+      {/* Enhanced Modal */}
+      {selectedProject && ReactDOM.createPortal(
+        <div className={`modal-backdrop ${modalOpen ? 'open' : ''}`} onClick={closeModal}>
+          <div className={`modal-content ${modalOpen ? 'open' : ''}`} onClick={(e) => e.stopPropagation()} tabIndex="-1">
               <div className="modal-header">
                 <h3 className="modal-title">{selectedProject.title}</h3>
                 <button className="modal-close" onClick={closeModal}>
@@ -394,9 +420,9 @@ const Projects = () => {
                 </a>
               </div>
             </div>
-          </div>,
-          document.body
-        )}
+        </div>,
+        document.body
+      )}
     </section>
   );
 };
