@@ -75,7 +75,7 @@ const Hero = () => {
             </h1>
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-white/90 tracking-wide">
-            Full Stack Developer
+            Software Engineer
           </h2>
         </div>
         <div className="separator w-2/3 ml-auto my-10 opacity-80 transform transition-all duration-300 hover:opacity-100"></div>
