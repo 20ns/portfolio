@@ -291,7 +291,9 @@ const Projects = () => {
   return (
     <section className="projects-section px-4 py-20 bg-transparent" id="projects">
       <h2 className="text-4xl font-bold text-center mb-12 subtitle">
-        Featured Projects
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+      Featured Projects
+        </span>
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
         {projectsData.map((project, index) => (
