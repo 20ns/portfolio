@@ -389,8 +389,6 @@ const Projects = () => {
           </div>
         ))}
       </div>
-
-      {/* Modal code with style fixes */}
       {selectedProject &&
         ReactDOM.createPortal(
           <div
