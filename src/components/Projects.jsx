@@ -206,7 +206,6 @@ This project demonstrates my ability to develop full-stack web applications and 
     initialAnimation: false
   },
 ];
-
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -396,84 +395,43 @@ const Projects = () => {
         ))}
       </div>
 
-      {/* Modal code */}
+      {/* Modal code with style fixes */}
       {selectedProject &&
         ReactDOM.createPortal(
           <div
-            className={`fixed inset-0 z-50 flex items-center justify-center 
-              bg-black bg-opacity-75 transition-opacity ${
-                modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-              }`}
+            className={`modal-backdrop ${modalOpen ? 'open' : ''}`}
             onClick={closeModal}
             ref={modalRef}
+            tabIndex="-1"
           >
             <div
-              className={`bg-gray-900 rounded-xl shadow-lg p-8 max-w-4xl w-full 
-                overflow-auto transition-all duration-300 ${
-                  modalOpen ? 'scale-100' : 'scale-95'
-                }`}
+              className={`modal-content ${modalOpen ? 'open' : ''}`}
               onClick={(e) => e.stopPropagation()}
+              tabIndex="-1"
             >
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-3xl font-bold text-white">
-                  {selectedProject.title}
-                </h3>
-                <button
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
-                  onClick={closeModal}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+              <div className="modal-header">
+                <h3 className="modal-title">{selectedProject.title}</h3>
+                <button className="modal-close" onClick={closeModal}>
+                  ×
                 </button>
               </div>
-
               <div className="modal-body">
-                <div className="mb-6">
-                  <img
-                    src={selectedProject.imageUrl}
-                    alt={selectedProject.title}
-                    className="w-full h-auto rounded-lg"
-                  />
+                <div className="modal-image-container">
+                  <img src={selectedProject.imageUrl} alt={selectedProject.title} className="modal-image" />
                 </div>
-                <div className="mb-6">
-                  <h4 className="text-xl font-semibold text-white mb-3">
-                    Project Overview
-                  </h4>
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    className="text-gray-300"
-                  >
+                <div className="modal-section">
+                  <h4 className="modal-section-title">Project Overview</h4>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} className="modal-description">
                     {selectedProject.description}
                   </ReactMarkdown>
                 </div>
-                <div className="mb-6">
-                  <h4 className="text-xl font-semibold text-white mb-3">
-                    Technologies Used
-                  </h4>
-                  <ul className="flex flex-wrap gap-2">
+                <div className="modal-section">
+                  <h4 className="modal-section-title">Technologies Used</h4>
+                  <ul className="modal-tech-list">
                     {selectedProject.technologies.map((tech) => {
-                      const style =
-                        technologyStyles[tech] || technologyStyles['Unknown'];
+                      const style = technologyStyles[tech] || technologyStyles['Unknown'];
                       return (
-                        <li
-                          key={tech}
-                          className={`px-3 py-1 rounded-full text-xs font-medium 
-                            transition-all duration-300 ${style.base} ${
-                            style.hover
-                          }`}
-                        >
+                        <li key={tech} className={`modal-tech-item ${style.base} ${style.hover}`}>
                           {tech}
                         </li>
                       );
@@ -481,13 +439,12 @@ const Projects = () => {
                   </ul>
                 </div>
               </div>
-              <div className="mt-8">
+              <div className="modal-footer">
                 <a
                   href={selectedProject.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold 
-                    py-3 px-6 rounded-lg transition-all duration-300"
+                  className="modal-button primary"
                 >
                   GitHub Repo
                 </a>
