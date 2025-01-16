@@ -4,12 +4,12 @@ import Intro from './components/Intro';
 import Navbar from './components/Navbar';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
-import ParticlesComponent from './components/ParticlesComponent'; // Import the component you created earlier
+import ParticlesComponent from './components/ParticlesComponent';
 
 function App() {
   return (
     <div id="app">
-      <ParticlesComponent /> {/* Use the Particles component here */}
+      <ParticlesComponent />
       <Navbar />
       <main>
         <section id="hero" className="two-column-container">
