@@ -202,7 +202,7 @@ This project showcases my ability to work effectively in a team-based environmen
 
 This project demonstrates my ability to develop full-stack web applications and integrate external APIs. While still in development, it showcases my skills in both frontend and backend technologies, as well as my commitment to creating user-focused and intelligent systems. I am excited to continue developing this project and implementing advanced features to further enhance its functionality and user experience.`,
     technologies: ['Python', 'API', 'Flask', 'JavaScript', 'HTML', 'CSS'],
-    github: 'YOUR_GITHUB_LINK_HERE', // Replace with your actual GitHub link
+    github: 'https://github.com/20ns/movierec',
     className: 'movie-recommendation',
     initialAnimation: false
   },
