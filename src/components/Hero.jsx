@@ -29,7 +29,7 @@ const Hero = () => {
       const calculateWidth = () => {
         setWidth(`${hiddenRef.current.scrollWidth + 10}px`);
       };
-     
+    
       const debounce = (func, delay) => {
         let timeoutId;
         return (...args) => {

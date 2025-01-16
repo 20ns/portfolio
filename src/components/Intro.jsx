@@ -15,15 +15,15 @@ const Intro = () => {
           setAnimateBox(true);
 
           // Delay the first text animation until the box animation is done
-          setTimeout(() => setAnimateText1(true), 1500); // 1.5s delay
-          setTimeout(() => setAnimateText2(true), 2500); // 2.5s delay
-          setTimeout(() => setAnimateText3(true), 3500); // 3.5s delay
+          setTimeout(() => setAnimateText1(true), 500); 
+          setTimeout(() => setAnimateText2(true), 1000); 
+          setTimeout(() => setAnimateText3(true), 1500); 
 
           observer.unobserve(entry.target);
         }
       },
       {
-        rootMargin: '-50px 0px -50px 0px', // Adjust this value as needed
+        rootMargin: '-50px 0px -50px 0px',
       }
     );
 
