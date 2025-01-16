@@ -11,6 +11,7 @@ export default {
         'float': 'float 6s ease-in-out infinite',
         'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'tech-tag-pop': 'tech-tag-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+        'nav-appear': 'nav-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards', // Added nav-appear animation
       },
       keyframes: {
         'slide-in-card-left': {
@@ -79,6 +80,16 @@ export default {
           '100%': { 
             transform: 'scale(1) translateY(0)', 
             opacity: '1' 
+          }
+        },
+        'nav-appear': { // Added nav-appear keyframes
+          '0%': {
+            transform: 'translateX(100px) translateY(-50%)',
+            opacity: '0'
+          },
+          '100%': {
+            transform: 'translateX(0) translateY(-50%)',
+            opacity: '1'
           }
         }
       }

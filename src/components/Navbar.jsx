@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const handleMouseEnter = () => {
     setIsOpen(true);
@@ -10,7 +15,7 @@ const Navbar = () => {
 
   const handleMouseLeave = () => {
     setIsOpen(false);
-    setHoveredItem(null); // Reset hovered item on mouse leave
+    setHoveredItem(null);
   };
 
   const handleItemHover = (item) => {
@@ -32,7 +37,6 @@ const Navbar = () => {
     }
   };
 
-  // Helper function to render animated text
   const renderAnimatedText = (item, text, shortText) => {
     return (
       <span className="inline-block overflow-hidden">
@@ -70,7 +74,9 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-1/2 right-5 sm:right-3.5 w-16 sm:w-32 h-[300px] bg-gray-800 bg-opacity-70 text-white transition-all duration-300 transform -translate-y-1/2 ${
+      className={`fixed top-1/2 right-5 sm:right-3.5 w-16 sm:w-32 h-[300px] bg-gray-800 bg-opacity-70 text-white transition-all duration-300 transform -translate-y-1/2 opacity-0 ${
+        isVisible ? 'animate-nav-appear' : ''
+      } ${
         isOpen ? 'sm:w-32 w-24 bg-opacity-90 backdrop-blur-sm' : 'sm:w-16 w-8 bg-opacity-70 backdrop-blur-sm'
       }`}
       onMouseEnter={handleMouseEnter}

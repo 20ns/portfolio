@@ -119,7 +119,7 @@ const Contact = () => {
         </div>
         
         <div className={`mt-24 text-center opacity-0 ${isHeaderVisible ? 'animate-fade-up' : ''}`}
-             style={{ animationDelay: '800ms' }}>
+            style={{ animationDelay: '800ms' }}>
           <p className="text-white/30 text-sm">
             © 2025 Navpreet Singh
           </p>
