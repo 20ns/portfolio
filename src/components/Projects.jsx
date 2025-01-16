@@ -120,7 +120,7 @@ const projectsData = [
 
 This project demonstrates my proficiency in applying machine learning techniques to analyze complex financial data and make informed predictions. It highlights my ability to work with large datasets, implement various algorithms, evaluate model performance, and interpret results using visualizations.`,
     technologies: ['Python', 'Pandas', 'Scikit-learn'],
-    github: 'https://github.com/20ns/stockmlproject',
+    github: 'YOUR_GITHUB_LINK_HERE', // Replace with your actual GitHub link
     initialAnimation: true,
   },
   {
@@ -139,7 +139,7 @@ This project demonstrates my proficiency in applying machine learning techniques
 
 This project showcases my ability to work effectively in a team-based environment, contributing to the development of a high-performing, dynamic website using **HTML5**, **Python**, and **MySQL**. My efforts are focused on not only making the website functional but also ensuring its efficiency and responsiveness.`,
     technologies: ['Java', 'MySQL', 'JavaFX', 'PHP', 'HTML', 'CSS', 'JavaScript'],
-    github: 'YOUR_GITHUB_LINK_HERE',
+    github: 'YOUR_GITHUB_LINK_HERE', // Replace with your actual GitHub link
     className: 'team',
     initialAnimation: true,
   },
