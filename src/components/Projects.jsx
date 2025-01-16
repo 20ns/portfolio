@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import ml from '../assets/img/ml.png';
+import GradientHeading from '../components/extra/GradientHeading';
 import team from '../assets/img/team.png';
 import portfolio from '../assets/img/portfolio.png';
 import working from '../assets/img/working.png';
@@ -302,15 +303,9 @@ const Projects = () => {
       className="projects-section px-4 py-20 bg-transparent relative"
       id="projects"
     >
-      <h2
-        className={`text-4xl font-bold text-center mb-12 subtitle transform transition-all duration-700 ${
-          visibleSection ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}
-      >
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-          Featured Projects
-        </span>
-      </h2>
+      <GradientHeading visibleSection={visibleSection}>
+      Featured Projects
+      </GradientHeading>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
         {projectsData.map((project, index) => (

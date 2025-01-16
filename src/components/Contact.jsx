@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Linkedin, Github } from 'lucide-react';
+import GradientHeading from '../components/extra/GradientHeading';
 
 const ContactLink = ({ href, icon: Icon, label, delay }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -31,8 +32,8 @@ const ContactLink = ({ href, icon: Icon, label, delay }) => {
       target="_blank"
       rel="noopener noreferrer"
       className={`group relative flex items-center justify-between w-full p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10
-                 hover:bg-white/10 hover:border-white/20 transition-all duration-300 ease-in-out overflow-hidden opacity-0
-                 ${isVisible ? 'animate-slide-in-card-right' : ''}`}
+                hover:bg-white/10 hover:border-white/20 transition-all duration-300 ease-in-out overflow-hidden opacity-0
+                ${isVisible ? 'animate-slide-in-card-right' : ''}`}
       style={{ animationDelay: `${delay}ms` }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -81,17 +82,15 @@ const Contact = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-32" id="contact">
+    <div className="container mx-auto px-4 py--0" id="contact">
       <div className="max-w-4xl mx-auto">
         <div 
           ref={headerRef}
           className={`text-center mb-20 opacity-0 ${isHeaderVisible ? 'animate-fade-up' : ''}`}
         >
-          <h2 className="text-6xl font-bold mb-4 tracking-tight">
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+          <GradientHeading visibleSection={isHeaderVisible}>
               Let's Connect
-            </span>
-          </h2>
+          </GradientHeading>
           <p className="text-xl text-white/60 font-light">
             Reach out to me via email or social media. I'd love to hear from you!
           </p>
@@ -120,7 +119,7 @@ const Contact = () => {
         
         <div className={`mt-24 text-center opacity-0 ${isHeaderVisible ? 'animate-fade-up' : ''}`}
             style={{ animationDelay: '800ms' }}>
-          <p className="text-white/30 text-sm">
+          <p className="text-white/30 text-sm py-5">
             © 2025 Navpreet Singh
           </p>
         </div>
