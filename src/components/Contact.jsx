@@ -1,25 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Linkedin, Github } from 'lucide-react';
 
-const ContactLink = ({ href, icon: Icon, label }) => {
+const ContactLink = ({ href, icon: Icon, label, delay }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const elementRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <a
+      ref={elementRef}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex items-center justify-between w-full p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 
-                 hover:bg-white/10 hover:border-white/20 transition-all duration-300 ease-in-out overflow-hidden"
+      className={`group relative flex items-center justify-between w-full p-6 rounded-xl bg-white/5 backdrop-blur-md border border-white/10
+                 hover:bg-white/10 hover:border-white/20 transition-all duration-300 ease-in-out overflow-hidden opacity-0
+                 ${isVisible ? 'animate-slide-in-card-right' : ''}`}
+      style={{ animationDelay: `${delay}ms` }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Hover background effect */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 
-                    group-hover:opacity-100 transition-opacity duration-500 ease-in-out`}
-      />
-
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0
+                    group-hover:opacity-100 transition-opacity duration-500 ease-in-out" />
       <div className="flex items-center gap-4 z-10">
         <div className={`transform transition-all duration-300 ease-in-out ${isHovered ? 'scale-110 rotate-12' : ''}`}>
           <Icon className="w-6 h-6 text-white/80 group-hover:text-white transition-colors duration-300" />
@@ -28,12 +47,10 @@ const ContactLink = ({ href, icon: Icon, label }) => {
           {label}
         </span>
       </div>
-
-      {/* Animated arrow */}
       <div className="z-10">
         <div className="flex items-center gap-2 text-white/50">
           <span className="text-sm">Visit</span>
-          <div className="w-6 h-[1px] bg-white/50 transform transition-all duration-300 ease-in-out 
+          <div className="w-6 h-[1px] bg-white/50 transform transition-all duration-300 ease-in-out
                         group-hover:w-12 group-hover:bg-white" />
         </div>
       </div>
@@ -42,11 +59,34 @@ const ContactLink = ({ href, icon: Icon, label }) => {
 };
 
 const Contact = () => {
+  const headerRef = useRef(null);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsHeaderVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-32" id="contact">
       <div className="max-w-4xl mx-auto">
-        {/* Header with gradient text */}
-        <div className="text-center mb-20">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-20 opacity-0 ${isHeaderVisible ? 'animate-fade-up' : ''}`}
+        >
           <h2 className="text-6xl font-bold mb-4 tracking-tight">
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
               Let's Connect
@@ -56,28 +96,30 @@ const Contact = () => {
             Reach out to me via email or social media. I'd love to hear from you!
           </p>
         </div>
-
-        {/* Contact links grid */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <ContactLink
             href="https://www.linkedin.com/in/navpreetsinghcs"
             icon={Linkedin}
             label="LinkedIn"
+            delay={200}
           />
           <ContactLink
             href="https://github.com/20ns"
             icon={Github}
             label="GitHub"
+            delay={400}
           />
           <ContactLink
             href="mailto:ns.2004@outlook.com"
             icon={Mail}
             label="Email"
+            delay={600}
           />
         </div>
-
-        {/* Footer */}
-        <div className="mt-24 text-center">
+        
+        <div className={`mt-24 text-center opacity-0 ${isHeaderVisible ? 'animate-fade-up' : ''}`}
+             style={{ animationDelay: '800ms' }}>
           <p className="text-white/30 text-sm">
             © 2025 Navpreet Singh
           </p>
