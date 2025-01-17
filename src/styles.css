@@ -317,7 +317,7 @@ body.modal-open {
   .modal-backdrop,
   .modal-content {
     pointer-events: auto;
-  }
+}
 
 .modal-backdrop.open {
 opacity: 1;
