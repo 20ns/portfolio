@@ -334,6 +334,19 @@ const Projects = () => {
     return () => observer.disconnect();
   }, [animatedProjects]);
 
+  // Helper function to get the first paragraph and format it
+  const getShortDescription = (description) => {
+    const firstParagraph = description.split('\n')[0];
+    return (
+      <ReactMarkdown 
+        remarkPlugins={[remarkGfm]}
+        className="text-gray-300 mb-6 line-clamp-3"
+      >
+        {firstParagraph}
+      </ReactMarkdown>
+    );
+  };
+
   const openModal = (project) => {
     setSelectedProject(project);
     setModalOpen(true);
@@ -386,9 +399,10 @@ const Projects = () => {
                 )}
               </div>
 
-              <p className="text-gray-300 mb-6 line-clamp-3">
-                {project.description.split('\n')[0]}
-              </p>
+              {/* Updated description with markdown rendering */}
+              <div className="prose prose-invert max-w-none">
+                {getShortDescription(project.description)}
+              </div>
 
               <div className="space-y-3 mb-6">
                 <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
@@ -436,6 +450,7 @@ const Projects = () => {
           </div>
         ))}
       </div>
+
       {selectedProject &&
         ReactDOM.createPortal(
           <div
