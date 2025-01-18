@@ -75,13 +75,37 @@ const projectsData = [
 // ProjectCard component
 const ProjectCard = ({ project, index, openModal }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(
+              index % 2 === 0 ? 'animate-slide-in-card-left' : 'animate-slide-in-card-right'
+            );
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [index]);
 
   return (
     <div
+      ref={cardRef}
       className={`group relative overflow-hidden bg-gradient-to-br from-gray-900/90 to-gray-800/90 
         backdrop-blur-lg rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl 
         hover:shadow-blue-500/20 border border-gray-700/50 hover:border-blue-500/50
-        transform hover:-translate-y-1`}
+        transform hover:-translate-y-1 opacity-0 flex flex-col h-full`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -102,76 +126,82 @@ const ProjectCard = ({ project, index, openModal }) => {
         {/* Project status badge */}
         {project.status && (
           <span className="absolute top-4 right-4 px-3 py-1.5 text-xs font-semibold rounded-full
-            bg-green-500/20 text-green-400 backdrop-blur-sm border border-green-500/30">
+            bg-green-500/20 text-green-400 backdrop-blur-sm border border-green-500/30 animate-scale-in">
             {project.status}
           </span>
         )}
       </div>
 
-      {/* Content section */}
-      <div className="relative p-6 space-y-6">
-        {/* Title and buttons */}
-        <div className="flex justify-between items-start gap-4">
-          <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 
-            transition-colors duration-300">
-            {project.title}
-          </h3>
-          <div className="flex gap-2">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-gray-700/50 hover:bg-gray-600 transition-all 
-                duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
-            >
-              <Github size={20} className="text-gray-300 hover:text-white" />
-            </a>
-          </div>
-        </div>
-
-        {/* Description */}
-        <div className="prose prose-invert prose-sm max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} className="line-clamp-3">
-            {project.description.split('\n')[0]}
-          </ReactMarkdown>
-        </div>
-
-        {/* Tech stack */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wider">
-            Technologies
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech, i) => (
-              <span
-                key={tech}
-                className="px-3 py-1.5 text-xs font-medium rounded-full bg-blue-500/10 
-                  text-blue-400 border border-blue-500/30 hover:bg-blue-500/20 
-                  transition-all duration-300 transform hover:scale-105"
-                style={{
-                  transitionDelay: `${i * 50}ms`,
-                  animation: isHovered ? `fadeIn 500ms ${i * 50}ms forwards` : 'none',
-                }}
+      {/* Content wrapper - Added to create consistent spacing */}
+      <div className="flex flex-col flex-1 p-6">
+        {/* Main content section */}
+        <div className="flex flex-col flex-1 space-y-6">
+          {/* Title and buttons */}
+          <div className="flex justify-between items-start gap-4">
+            <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 
+              transition-colors duration-300">
+              {project.title}
+            </h3>
+            <div className="flex gap-2">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-700/50 hover:bg-gray-600 transition-all 
+                  duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
               >
-                {tech}
-              </span>
-            ))}
+                <Github size={20} className="text-gray-300 hover:text-white" />
+              </a>
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="prose prose-invert prose-sm max-w-none">
+            <ReactMarkdown remarkPlugins={[remarkGfm]} className="line-clamp-3">
+              {project.description.split('\n')[0]}
+            </ReactMarkdown>
+          </div>
+
+          {/* Tech stack */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wider">
+              Technologies
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.map((tech, i) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1.5 text-xs font-medium rounded-full bg-blue-500/10 
+                    text-blue-400 border border-blue-500/30 hover:bg-blue-500/20 
+                    transition-all duration-300 transform hover:scale-105 animate-tech-tag-pop"
+                  style={{
+                    transitionDelay: `${i * 50}ms`,
+                    animationDelay: `${i * 50}ms`,
+                  }}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* View details button */}
-        <button
-          onClick={() => openModal(project)}
-          className="w-full mt-4 px-4 py-3 flex items-center justify-center gap-2 
-            bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 
-            hover:to-blue-400 text-white rounded-lg transition-all duration-300 
-            transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/25
-            focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-        >
-          <Code size={18} />
-          View Project Details
-          <ExternalLink size={18} className="ml-1" />
-        </button>
+        {/* Button section - Now in a separate div outside the flex-1 content */}
+        <div className="pt-6">
+          <button
+            onClick={() => openModal(project)}
+            className="w-full px-4 py-3 flex items-center justify-center gap-2 
+              bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 
+              hover:to-blue-400 text-white rounded-lg transition-all duration-300 
+              transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/25
+              focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 animate-fade-up"
+            style={{ animationDelay: '200ms' }}
+          >
+            <Code size={18} />
+            View Project Details
+            <ExternalLink size={18} className="ml-1" />
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -255,53 +285,6 @@ const Projects = () => {
 
     return () => observer.disconnect();
   }, []);
-
-  // Project cards animation observer
-  useEffect(() => {
-    const projectCards = document.querySelectorAll('.project-card');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const card = entry.target;
-            const projectTitle = card.querySelector('h3').textContent;
-            const project = projectsData.find((p) => p.title === projectTitle);
-            const index = Array.from(projectCards).indexOf(card);
-
-            if (!animatedProjects.includes(project.title)) {
-              if (index % 2 === 0) {
-                card.classList.add('animate-slide-in-card-left');
-              } else {
-                card.classList.add('animate-slide-in-card-right');
-              }
-
-              const tags = card.querySelectorAll('.tech-tag');
-              tags.forEach((tag, i) => {
-                tag.style.transitionDelay = `${(index * 200) + (i * 50)}ms`;
-                tag.classList.add('opacity-100', 'scale-100');
-              });
-
-              setAnimatedProjects((prev) => [...prev, project.title]);
-            }
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    projectCards.forEach((card) => observer.observe(card));
-    return () => observer.disconnect();
-  }, [animatedProjects]);
-
-  // Helper function to get the first paragraph and format it
-  const getShortDescription = (description) => {
-    const firstParagraph = description.split('\n')[0];
-    return (
-      <ReactMarkdown remarkPlugins={[remarkGfm]} className="text-gray-300 mb-6 line-clamp-3">
-        {firstParagraph}
-      </ReactMarkdown>
-    );
-  };
 
   const openModal = (project) => {
     setSelectedProject(project);
