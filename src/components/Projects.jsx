@@ -215,15 +215,62 @@ const Projects = () => {
   const sectionRef = useRef(null);
   const modalRef = useRef(null);
 
+  // Add scroll lock effect
+  useEffect(() => {
+    const body = document.body;
+    if (modalOpen) {
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      body.style.position = 'fixed';
+      body.style.width = '100%';
+      body.style.top = `-${scrollY}px`;
+      // Add class to prevent background interactions
+      body.classList.add('modal-open');
+    } else {
+      // Restore scroll position
+      const scrollY = body.style.top;
+      body.style.position = '';
+      body.style.top = '';
+      body.style.width = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      // Remove class preventing background interactions
+      body.classList.remove('modal-open');
+    }
+  }, [modalOpen]);
+
+  // Handle keyboard interactions
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         closeModal();
+      } else if (event.key === 'Tab' && modalOpen) {
+        // Get all focusable elements in modal
+        const focusableElements = modalRef.current?.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        
+        if (focusableElements?.length) {
+          const firstElement = focusableElements[0];
+          const lastElement = focusableElements[focusableElements.length - 1];
+
+          // If shift+tab and first element is focused, move to last element
+          if (event.shiftKey && document.activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          }
+          // If tab and last element is focused, move to first element
+          else if (!event.shiftKey && document.activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+          }
+        }
       }
     };
 
     if (modalOpen) {
       window.addEventListener('keydown', handleKeyDown);
+      // Focus the modal when it opens
+      modalRef.current?.focus();
     } else {
       window.removeEventListener('keydown', handleKeyDown);
     }
@@ -304,7 +351,7 @@ const Projects = () => {
       id="projects"
     >
       <GradientHeading visibleSection={visibleSection}>
-      Featured Projects
+        Featured Projects
       </GradientHeading>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
@@ -396,15 +443,21 @@ const Projects = () => {
             onClick={closeModal}
             ref={modalRef}
             tabIndex="-1"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
           >
             <div
               className={`modal-content ${modalOpen ? 'open' : ''}`}
               onClick={(e) => e.stopPropagation()}
-              tabIndex="-1"
             >
               <div className="modal-header">
-                <h3 className="modal-title">{selectedProject.title}</h3>
-                <button className="modal-close" onClick={closeModal}>
+                <h3 className="modal-title" id="modal-title">{selectedProject.title}</h3>
+                <button 
+                  className="modal-close" 
+                  onClick={closeModal}
+                  aria-label="Close modal"
+                >
                   ×
                 </button>
               </div>
