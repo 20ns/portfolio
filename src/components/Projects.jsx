@@ -108,15 +108,6 @@ This project showcases my ability to work effectively in a team-based environmen
     initialAnimation: true,
   },
   {
-    title: 'Portfolio Website',
-    imageUrl: portfolio,
-    description: `This portfolio is a testament to my proficiency in building modern web applications...`,
-    technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Vite', 'ESLint', 'Git', 'npm', 'react-tsparticles'],
-    github: 'https://github.com/20ns/portfolio',
-    className: 'portfolio',
-    initialAnimation: false,
-  },
-  {
     title: 'Movie Recommendation',
     imageUrl: working,
     description: `This project is a full-stack web application, currently in development, designed to provide personalized movie and TV show recommendations. It leverages a combination of **Flask** for the backend, **React** for the frontend, and the **Movie Database API** for comprehensive movie and TV show data. The goal is to create an engaging and intelligent system that suggests movies and TV shows tailored to individual user preferences.
