@@ -126,7 +126,7 @@ text-decoration: none;
 
 /* Navbar Open State */
 nav.nav-open {
-width: 200px;
+  backdrop-filter: blur(5px);
 }
 
 /* Navbar Text Depth */
@@ -400,6 +400,9 @@ transition: transform 0.3s ease;
 
 .modal-image:hover {
 transform: scale(1.05);
+}
+.letter, .modal-image {
+  will-change: transform, opacity;
 }
 
 .modal-description {
