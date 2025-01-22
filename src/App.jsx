@@ -1,30 +1,38 @@
-import React from 'react';
-import Hero from './components/Hero';
-import Intro from './components/Intro';
-import Navbar from './components/Navbar';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import ParticlesComponent from './components/ParticlesComponent'; // Import the component you created earlier
+import React, { lazy, Suspense } from 'react'
+import Navbar from './components/Navbar'
+const Hero = lazy(() => import('./components/Hero'))
+const Intro = lazy(() => import('./components/Intro'))
+const Projects = lazy(() => import('./components/Projects'))
+const Contact = lazy(() => import('./components/Contact'))
+const ParticlesComponent = lazy(() => import('./components/ParticlesComponent'))
 
 function App() {
   return (
     <div id="app">
-      <ParticlesComponent /> {/* Use the Particles component here */}
+      <Suspense fallback={null}>
+        <ParticlesComponent />
+      </Suspense>
       <Navbar />
       <main>
         <section id="hero" className="two-column-container">
-          <Hero />
-          <Intro />
+          <Suspense fallback={<div className="skeleton-loader" />}>
+            <Hero />
+            <Intro />
+          </Suspense>
         </section>
         <section id="portfolio">
-          <Projects />
+          <Suspense fallback={<div className="skeleton-loader" />}>
+            <Projects />
+          </Suspense>
         </section>
         <section id="contact">
-          <Contact />
+          <Suspense fallback={<div className="skeleton-loader" />}>
+            <Contact />
+          </Suspense>
         </section>
       </main>
     </div>
-  );
+  )
 }
 
-export default App;
+export default React.memo(App)
