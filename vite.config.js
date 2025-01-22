@@ -14,6 +14,9 @@ export default defineConfig({
   ],
   base: '/portfolio/',
   build: {
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 1000,
+    assetsInlineLimit: 4096,
     minify: 'terser',
     sourcemap: false,
     rollupOptions: {
