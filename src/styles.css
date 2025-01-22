@@ -645,4 +645,15 @@ opacity: 0;
     transform: translateZ(0);
   }
 }
+.hero {
+  will-change: transform, opacity;
+}
 
+.animate-pulse {
+  animation: pulse-opacity 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 1 }
+  50% { opacity: 0 }
+}
