@@ -66,7 +66,7 @@
     "detect_on": "canvas",
     "events": {
       "onhover": {
-        "enable": true,
+        "enable": false, 
         "mode": "grab"
       },
       "onclick": {
@@ -76,28 +76,8 @@
       "resize": true
     },
     "modes": {
-      "grab": {
-        "distance": 150,
-        "line_linked": {
-          "opacity": 0.2
-        }
-      },
-      "bubble": {
-        "distance": 200,
-        "size": 10,
-        "duration": 2,
-        "opacity": 0.6,
-        "speed": 3
-      },
-      "repulse": {
-        "distance": 100,
-        "duration": 0.4
-      },
       "push": {
         "particles_nb": 2
-      },
-      "remove": {
-        "particles_nb": 1
       }
     }
   },

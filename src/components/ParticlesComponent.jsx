@@ -1,27 +1,21 @@
-import { useCallback } from "react";
+import { useCallback, memo } from "react";
 import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles"; // Import loadFull from tsparticles
-import particlesConfig from "../particles-config.json"; // Path to your config
+import { loadSlim } from "tsparticles-slim"; // Lighter version
+import particlesConfig from "../particles-config.json";
 
-const ParticlesComponent = () => {
+const ParticlesComponent = memo(() => {
   const particlesInit = useCallback(async (engine) => {
-    // Initialize tsparticles using loadFull
-    await loadFull(engine); 
-  }, []);
-
-  const particlesLoaded = useCallback(async (container) => {
-    // Optional: Handle container loaded event
-    // await console.log(container); 
+    await loadSlim(engine); // Smaller bundle size (~40% reduction)
   }, []);
 
   return (
     <Particles
       id="tsparticles"
       init={particlesInit}
-      loaded={particlesLoaded}
       options={particlesConfig}
+      style={{ willChange: "transform" }} // Optimize animation rendering
     />
   );
-};
+});
 
 export default ParticlesComponent;
