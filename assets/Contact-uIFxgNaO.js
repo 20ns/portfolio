@@ -1,4 +1,4 @@
-import{R as e,r as t,a,j as n}from"./index-Ci5W37c7.js";import{c as r,a as i,G as o}from"./GradientHeading-v5MGsmrs.js";import"./vendor-JrvCYy-U.js";
+import{R as e,r as t,a,j as n}from"./index-BM6SkvES.js";import{c as r,a as i,G as o}from"./GradientHeading-BbHTU8W-.js";import"./vendor-JrvCYy-U.js";
 /**
  * @license lucide-react v0.471.1 - ISC
  *
