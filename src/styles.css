@@ -657,3 +657,15 @@ opacity: 0;
   0%, 100% { opacity: 1 }
   50% { opacity: 0 }
 }
+.animate-slide-in-card-left,
+.animate-slide-in-card-right {
+  will-change: transform, opacity;
+}
+
+.modal-backdrop {
+  will-change: opacity;
+}
+
+.modal-content {
+  will-change: transform, opacity;
+}
