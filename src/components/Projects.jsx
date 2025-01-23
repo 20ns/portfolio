@@ -8,6 +8,7 @@ import ml from '../assets/img/ml.png';
 import team from '../assets/img/team.png';
 import portfolio from '../assets/img/portfolio.png';
 import working from '../assets/img/working.png';
+import movierec from '../assets/img/movierec.png';
 
 // Memoized static data
 
@@ -431,7 +432,7 @@ This project showcases my ability to work effectively in a team-based environmen
   },
   {
     title: 'Movie Recommendation',
-    imageUrl: working,
+    imageUrl: movierec,
     description: `This project is a full-stack web application, currently in development, designed to provide personalized movie and TV show recommendations. It leverages a combination of **Flask** for the backend, **React** for the frontend, and the **Movie Database API** for comprehensive movie and TV show data. The goal is to create an engaging and intelligent system that suggests movies and TV shows tailored to individual user preferences.
 
 **Current Progress and Features:**
