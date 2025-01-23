@@ -669,3 +669,73 @@ opacity: 0;
 .modal-content {
   will-change: transform, opacity;
 }
+
+
+
+/* Modal container styles */
+.modal-body {
+  @apply bg-gray-900;
+}
+
+/* Section styles */
+.modal-section {
+  @apply bg-gray-800/40 rounded-lg border border-gray-700/50 overflow-hidden transition-all duration-300;
+}
+
+.modal-section:hover {
+  @apply border-gray-600/50;
+}
+
+/* Header styles */
+.section-header {
+  @apply p-4 bg-gray-800/60 border-b border-gray-700/50;
+}
+
+/* Content styles */
+.section-content {
+  @apply p-6;
+}
+
+/* Custom markdown styles */
+.prose-custom {
+  @apply prose prose-invert prose-lg max-w-none;
+}
+
+.prose-custom h2 {
+  @apply text-xl font-bold text-blue-400 mb-4 mt-8;
+}
+
+.prose-custom h3 {
+  @apply text-lg font-semibold text-blue-400 mt-6 mb-3;
+}
+
+.prose-custom p {
+  @apply text-gray-300 leading-relaxed mb-4;
+}
+
+.prose-custom strong {
+  @apply text-blue-400 font-semibold;
+}
+
+.prose-custom ul {
+  @apply space-y-2 my-4;
+}
+
+.prose-custom li {
+  @apply text-gray-300 pl-2;
+}
+
+/* Technology tags */
+.tech-tag {
+  @apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-300;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
