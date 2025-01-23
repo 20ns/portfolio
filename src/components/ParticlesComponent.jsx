@@ -5,7 +5,7 @@ import particlesConfig from "../particles-config.json";
 
 const ParticlesComponent = memo(() => {
   const particlesInit = useCallback(async (engine) => {
-    await loadSlim(engine); // Smaller bundle size (~40% reduction)
+    await loadSlim(engine); // Smaller bundle size 
   }, []);
 
   return (
