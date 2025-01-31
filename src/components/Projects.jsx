@@ -39,8 +39,8 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
     project.technologies.map((tech, i) => (
       <span
         key={tech}
-        className="px-3 py-1.5 text-xs font-medium rounded-full bg-blue-500/10 
-                text-blue-400 border border-blue-500/30 hover:bg-blue-500/20 
+        className="px-3 py-1.5 text-xs font-medium rounded-full bg-blue-500/10
+                text-blue-400 border border-blue-500/30 hover:bg-blue-500/20
                 transition-all duration-300 transform hover:scale-105 animate-tech-tag-pop"
         style={{ transitionDelay: `${i * 50}ms`, animationDelay: `${i * 50}ms` }}
       >
@@ -52,12 +52,12 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
   return (
     <div
       ref={cardRef}
-      className="group relative overflow-hidden bg-gradient-to-br from-gray-900/90 to-gray-800/90 
-        backdrop-blur-lg rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl 
-        hover:shadow-blue-500/20 border border-gray-700/50 hover:border-blue-500/50 
+      className="group relative overflow-hidden bg-gradient-to-br from-gray-900/90 to-gray-800/90
+        backdrop-blur-lg rounded-xl shadow-lg transition-all duration-500 hover:shadow-2xl
+        hover:shadow-blue-500/20 border border-gray-700/50 hover:border-blue-500/50
         transform hover:-translate-y-1 opacity-0 flex flex-col h-full"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0
         group-hover:opacity-100 transition-opacity duration-500" />
 
       <div className="relative h-64 overflow-hidden rounded-t-xl">
@@ -65,12 +65,12 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
         <img
           src={project.imageUrl}
           alt={project.title}
-          className="w-full h-full object-cover transform transition-transform duration-700 
+          className="w-full h-full object-cover transform transition-transform duration-700
             group-hover:scale-110"
           loading="lazy"
         />
         {project.status && (
-          <span className="absolute top-4 right-4 px-3 py-1.5 text-xs font-semibold rounded-full 
+          <span className="absolute top-4 right-4 px-3 py-1.5 text-xs font-semibold rounded-full
             bg-green-500/20 text-green-400 backdrop-blur-sm border border-green-500/30 animate-scale-in">
             {project.status}
           </span>
@@ -80,7 +80,7 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
       <div className="flex flex-col flex-1 p-6">
         <div className="flex flex-col flex-1 space-y-6">
           <div className="flex justify-between items-start gap-4">
-            <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 
+            <h3 className="text-2xl font-bold text-white group-hover:text-blue-400
               transition-colors duration-300">
               {project.title}
             </h3>
@@ -90,7 +90,7 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="absolute top-4 right-4 p-2 rounded-lg bg-gray-800/80 hover:bg-gray-700 
+                  className="absolute top-4 right-4 p-2 rounded-lg bg-gray-800/80 hover:bg-gray-700
                     transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
                   aria-label="GitHub repository"
                 >
@@ -100,8 +100,10 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
             </div>
           </div>
 
-          <div className="prose prose-invert prose-sm max-w-none">
-            {project.description.split('\n')[0]}
+          <div className="prose prose-invert prose-sm max-w-none text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {project.description.split('\n')[0]}
+            </ReactMarkdown>
           </div>
 
           <div className="space-y-3">
@@ -117,10 +119,9 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
         <div className="pt-6">
           <button
             onClick={() => openModal(project)}
-            className="w-full px-4 py-3 flex items-center justify-center gap-2 
-              bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 
-              hover:to-blue-400 text-white rounded-lg transition-all duration-300 
-              transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/25 
+            className="w-full px-4 py-3 flex items-center justify-center gap-2
+              bg-blue-500 hover:bg-blue-400 text-white rounded-lg transition-all duration-300
+              transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/25
               focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 animate-fade-up"
             style={{ animationDelay: '200ms' }}
           >
@@ -132,7 +133,7 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
       </div>
     </div>
   );
-}); 
+});
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
