@@ -385,7 +385,7 @@ const projectsData = [
 
 This project demonstrates my proficiency in applying machine learning techniques to analyze complex financial data and make informed predictions. It highlights my ability to work with large datasets, implement various algorithms, evaluate model performance, and interpret results using visualizations.`,
     technologies: ['Python', 'Pandas', 'Scikit-learn'],
-    github: 'YOUR_GITHUB_LINK_HERE',
+    github: 'https://github.com/20ns/stockmlproject',
     initialAnimation: true,
   },
   {
@@ -426,7 +426,7 @@ This project showcases my ability to work effectively in a team-based environmen
 *   **Easy Contact:** Included a dedicated contact section with direct links to my LinkedIn profile, GitHub repository, and email address, making it easy for visitors to connect and learn more.
 *   **Accessibility and SEO Optimized:** Built the website with accessibility in mind, utilizing semantic HTML elements and ensuring clear navigation. Implemented best practices for Search Engine Optimization (SEO) to improve the website's visibility and ranking on search engine results pages.`,
     technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Vite', 'ESLint', 'Git', 'npm', 'react-tsparticles', 'CSS', 'HTML'],
-    github: 'YOUR_GITHUB_LINK_HERE',
+    github: 'https://github.com/20ns/portfolio',
     className: 'team',
     initialAnimation: true,
   },
