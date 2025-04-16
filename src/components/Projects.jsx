@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import ReactDOM from 'react-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Github, Code, ExternalLink } from 'lucide-react';
+import { Github, Code, ExternalLink, Globe, Clock, CheckCircle2, FileCode2, BarChart3, Layers, ChevronLeft, ChevronRight } from 'lucide-react';
 import GradientHeading from '../components/extra/GradientHeading';
 import ml from '../assets/img/ml.png';
 import team from '../assets/img/team.png';
@@ -10,7 +10,19 @@ import portfolio from '../assets/img/portfolio.png';
 import working from '../assets/img/working.png';
 import movierec from '../assets/img/movierec.png';
 
-// Memoized static data
+// Project categories and status constants
+const CATEGORIES = {
+  ALL: 'All Projects',
+  ML: 'Machine Learning',
+  WEB: 'Web Development',
+  FULLSTACK: 'Full Stack',
+};
+
+const PROJECT_STATUS = {
+  COMPLETED: { label: 'Completed', color: 'green' },
+  ONGOING: { label: 'In Progress', color: 'blue' },
+  PLANNING: { label: 'Planning Phase', color: 'amber' },
+};
 
 const ProjectCard = React.memo(({ project, index, openModal }) => {
   const cardRef = useRef(null);
@@ -48,7 +60,6 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
       </span>
     ))
   , [project.technologies]);
-
   return (
     <div
       ref={cardRef}
@@ -57,11 +68,24 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
         hover:shadow-blue-500/20 border border-gray-700/50 hover:border-blue-500/50
         transform hover:-translate-y-1 opacity-0 flex flex-col h-full"
     >
+      {/* Enhanced background effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0
         group-hover:opacity-100 transition-opacity duration-500" />
+      
+      {/* Category badge */}
+      {project.category && (
+        <div className="absolute top-4 left-4 z-10">
+          <span className="px-3 py-1.5 text-xs font-medium rounded-full
+            bg-gray-800/80 text-gray-300 backdrop-blur-sm border border-gray-700/50 animate-scale-in">
+            {project.category}
+          </span>
+        </div>
+      )}
 
       <div className="relative h-64 overflow-hidden rounded-t-xl">
+        {/* Enhanced gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900/90" />
+        
         <img
           src={project.imageUrl}
           alt={project.title}
@@ -69,9 +93,23 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
             group-hover:scale-110"
           loading="lazy"
         />
+        
+        {/* Enhanced status badge */}
         {project.status && (
-          <span className="absolute top-4 right-4 px-3 py-1.5 text-xs font-semibold rounded-full
-            bg-green-500/20 text-green-400 backdrop-blur-sm border border-green-500/30 animate-scale-in">
+          <span className={`absolute top-4 right-4 px-3 py-1.5 text-xs font-semibold rounded-full
+            flex items-center gap-1.5 backdrop-blur-sm animate-scale-in
+            ${project.status === PROJECT_STATUS.COMPLETED.label 
+              ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+              : project.status === PROJECT_STATUS.ONGOING.label
+                ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}`}>
+            {project.status === PROJECT_STATUS.COMPLETED.label ? (
+              <CheckCircle2 size={14} />
+            ) : project.status === PROJECT_STATUS.ONGOING.label ? (
+              <Clock size={14} />
+            ) : (
+              <FileCode2 size={14} />
+            )}
             {project.status}
           </span>
         )}
@@ -79,6 +117,7 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
 
       <div className="flex flex-col flex-1 p-6">
         <div className="flex flex-col flex-1 space-y-6">
+          {/* Improved title area */}
           <div className="flex justify-between items-start gap-4">
             <h3 className="text-2xl font-bold text-white group-hover:text-blue-400
               transition-colors duration-300">
@@ -90,22 +129,48 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="absolute top-4 right-4 p-2 rounded-lg bg-gray-800/80 hover:bg-gray-700
+                  className="p-2 rounded-lg bg-gray-800/80 hover:bg-gray-700
                     transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
                   aria-label="GitHub repository"
                 >
                   <Github size={20} className="text-gray-300 hover:text-white" />
                 </a>
               )}
+              {project.liveDemo && (
+                <a
+                  href={project.liveDemo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-lg bg-gray-800/80 hover:bg-gray-700
+                    transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-500/20"
+                  aria-label="Live demo"
+                >
+                  <Globe size={20} className="text-gray-300 hover:text-white" />
+                </a>
+              )}
             </div>
           </div>
 
+          {/* Project description preview */}
           <div className="prose prose-invert prose-sm max-w-none text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {project.description.split('\n')[0]}
             </ReactMarkdown>
           </div>
 
+          {/* Project stats if available */}
+          {project.stats && (
+            <div className="flex flex-wrap gap-3 items-center">
+              {project.stats.map((stat, index) => (
+                <div key={index} className="flex items-center gap-1.5 text-xs text-gray-400">
+                  {stat.icon}
+                  <span>{stat.label}: <span className="text-blue-400 font-medium">{stat.value}</span></span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Technologies */}
           <div className="space-y-3">
             <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wider">
               Technologies
@@ -116,11 +181,13 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
           </div>
         </div>
 
+        {/* Enhanced call to action */}
         <div className="pt-6">
           <button
             onClick={() => openModal(project)}
             className="w-full px-4 py-3 flex items-center justify-center gap-2
-              bg-blue-500 hover:bg-blue-400 text-white rounded-lg transition-all duration-300
+              bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 
+              text-white rounded-lg transition-all duration-300
               transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/25
               focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 animate-fade-up"
             style={{ animationDelay: '200ms' }}
@@ -138,9 +205,51 @@ const ProjectCard = React.memo(({ project, index, openModal }) => {
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(CATEGORIES.ALL);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const sectionRef = useRef(null);
+  const headerRef = useRef(null);
   const modalRef = useRef(null);
   const scrollbarWidth = useRef(0); // Ref to store scrollbar width
+
+  // Observer for header animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsHeaderVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
+    }
+
+    return () => {
+      if (headerRef.current) {
+        observer.unobserve(headerRef.current);
+      }
+    };
+  }, []);
+
+  // Filter projects by category
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === CATEGORIES.ALL) {
+      return projectsData;
+    }
+    return projectsData.filter(project => project.category === activeCategory);
+  }, [activeCategory]);
+
+  // Calculate project statistics
+  const projectStats = useMemo(() => ({
+    total: projectsData.length,
+    completed: projectsData.filter(p => p.status === PROJECT_STATUS.COMPLETED.label).length,
+    inProgress: projectsData.filter(p => p.status === PROJECT_STATUS.ONGOING.label).length,
+    technologies: [...new Set(projectsData.flatMap(p => p.technologies))].length
+  }), []);
 
   const openModal = useCallback((project) => {
     setSelectedProject(project);
@@ -206,9 +315,8 @@ const Projects = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [modalOpen, handleKeyDown]);
-
   const projectCards = useMemo(() =>
-    projectsData.map((project, index) => (
+    filteredProjects.map((project, index) => (
       <ProjectCard
         key={project.title}
         project={project}
@@ -216,7 +324,7 @@ const Projects = () => {
         openModal={openModal}
       />
     ))
-  , [openModal]);
+  , [filteredProjects, openModal]);
 
   return (
     <section
@@ -224,17 +332,75 @@ const Projects = () => {
       className="projects-section px-4 py-20 bg-transparent relative"
       id="projects"
     >
-      <GradientHeading>
-        Featured Projects
-      </GradientHeading>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-        {projectCards}
+      <div ref={headerRef}>
+        <GradientHeading visibleSection={isHeaderVisible}>
+          Featured Projects
+        </GradientHeading>
       </div>
 
-      {selectedProject && ReactDOM.createPortal(
+      {/* Projects introduction with statistics */}
+      <div className={`max-w-3xl mx-auto text-center mb-12 transition-all duration-700 ${
+        isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
+        <p className="text-lg text-gray-300 mb-8">
+          Explore my portfolio of work spanning machine learning, web development, and full-stack applications.
+          Each project demonstrates different technical skills and problem-solving approaches.
+        </p>
+        
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/10">
+            <div className="text-3xl font-bold text-blue-400 mb-1">{projectStats.total}</div>
+            <div className="text-sm text-gray-400">Total Projects</div>
+          </div>
+          
+          <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/10">
+            <div className="text-3xl font-bold text-green-400 mb-1">{projectStats.completed}</div>
+            <div className="text-sm text-gray-400">Completed</div>
+          </div>
+          
+          <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/10">
+            <div className="text-3xl font-bold text-blue-400 mb-1">{projectStats.inProgress}</div>
+            <div className="text-sm text-gray-400">In Progress</div>
+          </div>
+          
+          <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/10">
+            <div className="text-3xl font-bold text-purple-400 mb-1">{projectStats.technologies}</div>
+            <div className="text-sm text-gray-400">Technologies</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Category filters */}
+      <div className={`flex flex-wrap justify-center gap-3 mb-12 transition-all duration-700 delay-300 ${
+        isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
+        {Object.values(CATEGORIES).map((category) => (
+          <button
+            key={category}
+            onClick={() => setActiveCategory(category)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
+              ${activeCategory === category
+                ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25'
+                : 'bg-white/5 text-gray-300 hover:bg-white/10'}`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      {/* No projects message if filtered to empty */}
+      {projectCards.length === 0 ? (
+        <div className="text-center py-20 text-gray-400">
+          <FileCode2 size={48} className="mx-auto mb-4 opacity-40" />
+          <p>No projects found in this category.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+          {projectCards}
+        </div>
+      )}      {selectedProject && ReactDOM.createPortal(
   <div
-    className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-200 ${
+    className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-300 ${
       modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
     }`}
     onClick={closeModal}
@@ -243,10 +409,10 @@ const Projects = () => {
     role="dialog"
     aria-modal="true"
     aria-labelledby="modal-title"
-    style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(4px)' }}
+    style={{ backgroundColor: 'rgba(0, 0, 0, 0.85)', backdropFilter: 'blur(8px)' }}
   >
     <div
-      className={`relative w-full max-w-4xl bg-gray-900 rounded-xl shadow-2xl transform transition-all duration-200 ${
+      className={`relative w-full max-w-5xl bg-gray-900 rounded-xl shadow-2xl transform transition-all duration-300 ${
         modalOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
       }`}
       onClick={(e) => e.stopPropagation()}
@@ -257,9 +423,40 @@ const Projects = () => {
     >
       {/* Modal Header */}
       <div className="sticky top-0 z-10 flex items-center justify-between p-6 bg-gray-900/95 backdrop-blur-sm border-b border-gray-700/50">
-        <h3 className="text-2xl font-bold text-white" id="modal-title">
-          {selectedProject.title}
-        </h3>
+        <div className="flex items-center gap-3">
+          <h3 className="text-2xl font-bold text-white" id="modal-title">
+            {selectedProject.title}
+          </h3>
+          
+          {/* Status badge in header */}
+          {selectedProject.status && (
+            <span className={`px-3 py-1 text-xs font-semibold rounded-full
+              flex items-center gap-1.5
+              ${selectedProject.status === PROJECT_STATUS.COMPLETED.label 
+                ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                : selectedProject.status === PROJECT_STATUS.ONGOING.label
+                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                  : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}`}>
+              {selectedProject.status === PROJECT_STATUS.COMPLETED.label ? (
+                <CheckCircle2 size={14} />
+              ) : selectedProject.status === PROJECT_STATUS.ONGOING.label ? (
+                <Clock size={14} />
+              ) : (
+                <FileCode2 size={14} />
+              )}
+              {selectedProject.status}
+            </span>
+          )}
+          
+          {/* Category badge in header */}
+          {selectedProject.category && (
+            <span className="px-3 py-1 text-xs font-medium rounded-full
+              bg-gray-800/80 text-gray-300 border border-gray-700/50">
+              {selectedProject.category}
+            </span>
+          )}
+        </div>
+        
         <button
           className="p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-gray-800"
           onClick={closeModal}
@@ -272,59 +469,222 @@ const Projects = () => {
       </div>
 
       {/* Modal Body */}
-      <div className="p-6 space-y-6">
-        {/* Project Image */}
-        <div className="relative h-64 -mt-2 rounded-lg overflow-hidden">
+      <div className="p-6 space-y-8">
+        {/* Project Image Gallery */}
+        <div className="relative h-80 rounded-lg overflow-hidden">
           <img
             src={selectedProject.imageUrl}
             alt={selectedProject.title}
             className="w-full h-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/10" />
-        </div>
-
-        {/* Project Overview */}
-        <div className="space-y-4">
-          <h4 className="text-xl font-semibold text-electric-cyan">Project Overview</h4>
-          <div className="prose prose-invert max-w-none">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {selectedProject.description}
-            </ReactMarkdown>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900/90" />
+          
+          {/* Image navigation dots would go here for multiple images */}
+          {selectedProject.additionalImages && selectedProject.additionalImages.length > 0 && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              <button className="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70 transition-colors">
+                <ChevronLeft size={20} />
+              </button>
+              <button className="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70 transition-colors">
+                <ChevronRight size={20} />
+              </button>
+            </div>
+          )}
+          
+          {/* Project quick stats overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-gray-900 to-transparent">
+            <div className="flex flex-wrap gap-4 text-sm">
+              {selectedProject.projectDate && (
+                <div className="flex items-center gap-2 text-gray-300">
+                  <Clock size={16} className="text-blue-400" />
+                  <span>Date: <span className="text-white">{selectedProject.projectDate}</span></span>
+                </div>
+              )}
+              
+              {selectedProject.role && (
+                <div className="flex items-center gap-2 text-gray-300">
+                  <Layers size={16} className="text-purple-400" />
+                  <span>Role: <span className="text-white">{selectedProject.role}</span></span>
+                </div>
+              )}
+              
+              {selectedProject.duration && (
+                <div className="flex items-center gap-2 text-gray-300">
+                  <BarChart3 size={16} className="text-green-400" />
+                  <span>Duration: <span className="text-white">{selectedProject.duration}</span></span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Technologies Used */}
-        <div className="space-y-4">
-          <h4 className="text-xl font-semibold text-electric-cyan">Technologies Used</h4>
-          <ul className="flex flex-wrap gap-2">
-            {selectedProject.technologies.map((tech) => {
-              const style = technologyStyles[tech] || technologyStyles['Unknown'];
-              return (
-                <li
-                  key={tech}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${style.base} ${style.hover}`}
-                >
-                  {tech}
-                </li>
-              );
-            })}
-          </ul>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            {/* Project Overview */}
+            <div className="bg-gray-800/40 rounded-lg border border-gray-700/50 overflow-hidden mb-6">
+              <div className="p-4 bg-gray-800/60 border-b border-gray-700/50">
+                <h4 className="text-xl font-semibold text-white">Project Overview</h4>
+              </div>
+              <div className="p-6">
+                <div className="prose prose-invert prose-lg max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {selectedProject.description}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            </div>
+            
+            {/* Key Features - if available */}
+            {selectedProject.keyFeatures && (
+              <div className="bg-gray-800/40 rounded-lg border border-gray-700/50 overflow-hidden mb-6">
+                <div className="p-4 bg-gray-800/60 border-b border-gray-700/50">
+                  <h4 className="text-xl font-semibold text-white">Key Features</h4>
+                </div>
+                <div className="p-6">
+                  <ul className="space-y-3">
+                    {selectedProject.keyFeatures.map((feature, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="mt-1 text-blue-400">
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div className="text-gray-300">{feature}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+            
+            {/* Challenges & Solutions - if available */}
+            {selectedProject.challenges && (
+              <div className="bg-gray-800/40 rounded-lg border border-gray-700/50 overflow-hidden mb-6">
+                <div className="p-4 bg-gray-800/60 border-b border-gray-700/50">
+                  <h4 className="text-xl font-semibold text-white">Challenges & Solutions</h4>
+                </div>
+                <div className="p-6">
+                  <div className="space-y-4">
+                    {selectedProject.challenges.map((item, index) => (
+                      <div key={index} className="mb-6">
+                        <h5 className="text-lg font-medium text-blue-400 mb-2">Challenge {index + 1}</h5>
+                        <p className="text-gray-300 mb-3">{item.challenge}</p>
+                        <h5 className="text-lg font-medium text-green-400 mb-2">Solution</h5>
+                        <p className="text-gray-300">{item.solution}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          
+          <div className="space-y-6">
+            {/* Technologies Used */}
+            <div className="bg-gray-800/40 rounded-lg border border-gray-700/50 overflow-hidden">
+              <div className="p-4 bg-gray-800/60 border-b border-gray-700/50">
+                <h4 className="text-xl font-semibold text-white">Technologies</h4>
+              </div>
+              <div className="p-6">
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.technologies.map((tech) => {
+                    const style = technologyStyles[tech] || technologyStyles['Unknown'];
+                    return (
+                      <span
+                        key={tech}
+                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${style.base} ${style.hover}`}
+                      >
+                        {tech}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            
+            {/* My Role - if available */}
+            {selectedProject.myRole && (
+              <div className="bg-gray-800/40 rounded-lg border border-gray-700/50 overflow-hidden">
+                <div className="p-4 bg-gray-800/60 border-b border-gray-700/50">
+                  <h4 className="text-xl font-semibold text-white">My Role</h4>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-300">{selectedProject.myRole}</p>
+                </div>
+              </div>
+            )}
+            
+            {/* Project Links */}
+            <div className="bg-gray-800/40 rounded-lg border border-gray-700/50 overflow-hidden">
+              <div className="p-4 bg-gray-800/60 border-b border-gray-700/50">
+                <h4 className="text-xl font-semibold text-white">Links</h4>
+              </div>
+              <div className="p-6 space-y-4">
+                {selectedProject.github && (
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-700/50 hover:bg-gray-700/80 text-white font-medium transition-colors w-full"
+                  >
+                    <Github size={20} className="text-gray-300" />
+                    <span>GitHub Repository</span>
+                  </a>
+                )}
+                
+                {selectedProject.liveDemo && (
+                  <a
+                    href={selectedProject.liveDemo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600/50 hover:bg-blue-600/80 text-white font-medium transition-colors w-full"
+                  >
+                    <Globe size={20} />
+                    <span>Live Demo</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Modal Footer */}
       <div className="sticky bottom-0 p-6 bg-gray-900/95 backdrop-blur-sm border-t border-gray-700/50">
-        <div className="flex justify-end">
-          <a
-            href={selectedProject.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors"
+        <div className="flex justify-between items-center">
+          <button
+            onClick={closeModal}
+            className="px-6 py-3 rounded-lg border border-gray-600 hover:bg-gray-800 text-gray-300 font-medium transition-colors"
           >
-            <Github size={20} />
-            View on GitHub
-          </a>
+            Close
+          </button>
+          
+          <div className="flex gap-3">
+            {selectedProject.github && (
+              <a
+                href={selectedProject.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-medium transition-all transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/25"
+              >
+                <Github size={20} />
+                View on GitHub
+              </a>
+            )}
+            
+            {selectedProject.liveDemo && (
+              <a
+                href={selectedProject.liveDemo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white font-medium transition-all transform hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/25"
+              >
+                <Globe size={20} />
+                View Live Demo
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
