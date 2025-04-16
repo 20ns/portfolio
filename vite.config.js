@@ -11,7 +11,8 @@ export default defineConfig({
         plugins: ['@emotion/babel-plugin']
       }
     }),
-    vitePluginCompression(),    VitePWA({
+    vitePluginCompression(),
+    VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.jpg', 'logo.jpg'],
       manifest: {
