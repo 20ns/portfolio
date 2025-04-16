@@ -2,27 +2,6 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { Mail, Linkedin, Github } from 'lucide-react';
 import GradientHeading from '../components/extra/GradientHeading';
 
-// Add this CSS to your stylesheet
-const tempStyles = `
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-slide-in-card-right {
-  animation: slideInRight 0.6s ease-out forwards;
-}
-
-.animate-fade-up {
-  animation: fadeUp 0.6s ease-out forwards;
-}
-`;
-
 const ContactLink = React.memo(({ href, icon: Icon, label, delay }) => {
   const elementRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -51,7 +30,6 @@ const ContactLink = React.memo(({ href, icon: Icon, label, delay }) => {
                 hover:bg-white/10 hover:border-white/20`}
       style={{ animationDelay: `${delay}ms` }}
     >
-      <style>{tempStyles}</style>
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10
                     opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out" />
       <div className="flex items-center gap-4 z-10">

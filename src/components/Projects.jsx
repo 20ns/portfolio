@@ -721,6 +721,59 @@ const technologyStyles = {
 
 const projectsData = [
   {
+    title: 'Movie Recommendation',
+    imageUrl: movierec,    description: `MovieRec is a sophisticated, production-ready movie and TV show recommendation platform deployed at [movierec.net](https://www.movierec.net) with 10,000+ monthly active users. Completed in 6 months from concept to production, this project demonstrates my ability to architect and implement complex full-stack applications with a focus on personalization, scalability, and modern user experience.
+
+**Key Technical Achievements:**
+
+*   **Advanced React Architecture:** Built with a component-driven architecture using React's latest features (Hooks, Context API, Custom Hooks). The application features 30+ reusable components and 15+ custom hooks, resulting in a 40% code reduction compared to traditional class-based implementations.
+
+*   **Intelligent Recommendation Engine:** Developed a hybrid recommendation system combining collaborative filtering and content-based algorithms that processes user preferences across 20+ dimensions. This resulted in an observed 78% user satisfaction rate and a 45% increase in content discovery compared to traditional browsing.
+
+*   **Natural Language Search Processing:** Implemented a sophisticated search system using NLP techniques that interprets user intent from natural language queries (e.g., "movies like Inception", "funny action movies from the 90s"), accurately identifying similarity requests, mood indicators, time periods, and subject matter with 92% accuracy.
+
+*   **AWS Cloud Infrastructure:** Designed and deployed a serverless backend using AWS services (Cognito, API Gateway, Lambda, DynamoDB), reducing operational costs by 65% compared to traditional server architecture while maintaining 99.9% uptime and handling 500+ concurrent users during peak hours.
+
+*   **Performance Optimization:** Overcame initial loading challenges by implementing strategic caching (localStorage, sessionStorage), lazy loading, and component memoization, resulting in a 300ms average initial page load (down from 2.3s) and 150ms subsequent interaction response time, achieving a 95/100 Lighthouse performance score.
+
+*   **Authentication & Security:** Built comprehensive user authentication with AWS Cognito, including secure sign-up, sign-in, email verification, and password reset functionalities, with proper CSRF protection and token management that passed external security audit with zero critical vulnerabilities.
+
+*   **State Management & Data Persistence:** Created a hybrid state management approach combining React Context with local storage persistence, enabling seamless cross-session user experiences while maintaining clean component architecture. This approach resulted in 30% better user retention metrics compared to earlier prototypes.
+
+*   **Comprehensive Testing:** Implemented a robust testing strategy with Jest for unit tests (85% coverage), React Testing Library for component tests, and Cypress for end-to-end testing, reducing production bugs by 75% compared to previous projects.
+
+**Core Features:**
+
+*   Multi-step onboarding questionnaire capturing detailed user preferences with 80% completion rate
+*   Personalized recommendations with smart filtering and refresh capabilities
+*   Comprehensive content discovery features including trending sections and category browsers
+*   Smart search with natural language understanding and multi-parameter filtering
+*   User collections (Favorites, Watchlist) with cloud synchronization and offline capabilities
+*   Responsive design with animation-enhanced UI using Framer Motion and Tailwind CSS
+*   Analytics integration providing insights into user behavior and preference patterns
+
+**Technologies:**
+
+*   **Frontend:** React, Tailwind CSS, Framer Motion, React Router
+*   **Backend:** AWS (Cognito, Lambda, API Gateway, DynamoDB)
+*   **External APIs:** TMDB API
+*   **DevOps:** Webpack, Babel, Cloudflare, GitHub Actions for CI/CD
+
+This project showcases my expertise in building production-grade applications with complex state management, third-party API integration, cloud architecture, and optimization for performance and user experience. The recommendation engine's intelligent preference mapping and natural language search capabilities highlight my ability to implement sophisticated algorithms within a polished user interface.`,
+    technologies: ['React', 'AWS', 'JavaScript', 'Tailwind CSS', 'API Integration', 'Framer Motion', 'DynamoDB', 'CI/CD'],
+    github: 'https://github.com/20ns/movierec',
+    liveDemo: 'https://www.movierec.net',
+    className: 'movie-recommendation',
+    initialAnimation: false,
+    status: PROJECT_STATUS.ONGOING.label,
+    category: CATEGORIES.FULLSTACK,
+    stats: [
+      { icon: <BarChart3 size={16} />, label: 'User Satisfaction', value: '78%' },
+      { icon: <Clock size={16} />, label: 'Load Time', value: '300ms' },
+      { icon: <Layers size={16} />, label: 'Components', value: '30+' }
+    ],
+  },
+  {
     title: 'Peri Palace Restaurant Platform',
     imageUrl: team,
     description: `Architected and implemented the backend infrastructure for Peri Palace, a production-ready restaurant web application with comprehensive customer-facing and administrative capabilities. As the lead backend developer in a team of nine, I spearheaded mission-critical components of this collaborative project.
@@ -768,36 +821,7 @@ This project demonstrates my expertise in designing and implementing secure, sca
       { icon: <Layers size={16} />, label: 'Database Tables', value: '12+' }
     ],
   },
-  {
-    title: 'Machine Learning Stocks Algorithm',
-    imageUrl: ml,
-    description: `In this project, I developed a machine learning algorithm to analyze and predict stock prices using a decade's worth of historical data. My primary objective was to leverage machine learning models to forecast future stock trends and identify potential investment opportunities.
-
-**Key Aspects and Methodologies:**
-
-*   **Data Collection and Preprocessing:** I gathered ten years of historical stock data, encompassing features like opening/closing prices, trading volumes, and other relevant technical indicators. Data cleaning and preprocessing were performed to handle missing values, outliers, and inconsistencies. A crucial step involved implementing **data normalization** to standardize the dataset, ensuring all features contribute equally to the model training and improving prediction accuracy.
-
-*   **Machine Learning Model Implementation:** Utilizing the **scikit-learn** library in Python, I implemented various machine learning algorithms. This included **regression models**, such as linear regression, to predict continuous stock price values and **classification models**, like decision trees or random forests, to forecast categorical outcomes (e.g., upward or downward trends). I tuned model hyperparameters to optimize performance and minimize prediction errors.
-
-*   **Model Evaluation and Validation:** To assess model performance, I employed metrics like **Mean Squared Error (MSE)** for regression and **accuracy**, **precision**, **recall**, and **F1-score** for classification. Techniques like cross-validation were used to ensure the robustness and generalizability of the models.
-
-*   **Visualization and Interpretation:** I used **Matplotlib** to create visualizations that aid in understanding stock market trends and model performance. These included graphs of predicted vs. actual stock prices, feature importance plots, and distributions of stock price movements over time.
-
-*   **Mathematical Foundations:** The project involved applying core mathematical concepts, including **linear algebra**, **statistics**, and **calculus**, which are fundamental to understanding and implementing machine learning algorithms. These principles were crucial for interpreting model outputs and making informed decisions about stock market behavior.
-
-**Technologies Used:**
-
-*   **Python:** The primary programming language for data analysis, model development, and visualization.
-*   **scikit-learn:** A powerful machine learning library used for implementing regression and classification algorithms.
-*   **Pandas:** Used for efficient data manipulation and preprocessing.
-*   **NumPy:** Utilized for numerical operations, especially with arrays and matrices.
-*   **Matplotlib:** The main library used for creating static data visualizations.
-
-This project demonstrates my proficiency in applying machine learning techniques to analyze complex financial data and make informed predictions. It highlights my ability to work with large datasets, implement various algorithms, evaluate model performance, and interpret results using visualizations.`,
-    technologies: ['Python', 'Pandas', 'Scikit-learn'],
-    github: 'https://github.com/20ns/stockmlproject',
-    initialAnimation: true,
-  },  {    title: 'Portfolio Website',
+  {    title: 'Portfolio Website',
     imageUrl: portfolio,
     description: `This portfolio showcases my expertise in modern frontend development and UI/UX design. Built with React, Tailwind CSS, and advanced animation techniques, this project demonstrates my ability to create high-performance web applications with exceptional user experiences.
 
@@ -841,58 +865,38 @@ This project exemplifies my commitment to creating exceptional user experiences 
       { icon: <Clock size={16} />, label: 'Animation FPS', value: '60' },
       { icon: <Layers size={16} />, label: 'PWA Score', value: '100%' }
     ],
-  },  {
-    title: 'Movie Recommendation',
-    imageUrl: movierec,    description: `MovieRec is a sophisticated, production-ready movie and TV show recommendation platform deployed at [movierec.net](https://www.movierec.net) with 10,000+ monthly active users. Completed in 6 months from concept to production, this project demonstrates my ability to architect and implement complex full-stack applications with a focus on personalization, scalability, and modern user experience.
+  },
+  {
+    title: 'Machine Learning Stocks Algorithm',
+    imageUrl: ml,
+    description: `In this project, I developed a machine learning algorithm to analyze and predict stock prices using a decade's worth of historical data. My primary objective was to leverage machine learning models to forecast future stock trends and identify potential investment opportunities.
 
-**Key Technical Achievements:**
+**Key Aspects and Methodologies:**
 
-*   **Advanced React Architecture:** Built with a component-driven architecture using React's latest features (Hooks, Context API, Custom Hooks). The application features 30+ reusable components and 15+ custom hooks, resulting in a 40% code reduction compared to traditional class-based implementations.
+*   **Data Collection and Preprocessing:** I gathered ten years of historical stock data, encompassing features like opening/closing prices, trading volumes, and other relevant technical indicators. Data cleaning and preprocessing were performed to handle missing values, outliers, and inconsistencies. A crucial step involved implementing **data normalization** to standardize the dataset, ensuring all features contribute equally to the model training and improving prediction accuracy.
 
-*   **Intelligent Recommendation Engine:** Developed a hybrid recommendation system combining collaborative filtering and content-based algorithms that processes user preferences across 20+ dimensions. This resulted in an observed 78% user satisfaction rate and a 45% increase in content discovery compared to traditional browsing.
+*   **Machine Learning Model Implementation:** Utilizing the **scikit-learn** library in Python, I implemented various machine learning algorithms. This included **regression models**, such as linear regression, to predict continuous stock price values and **classification models**, like decision trees or random forests, to forecast categorical outcomes (e.g., upward or downward trends). I tuned model hyperparameters to optimize performance and minimize prediction errors.
 
-*   **Natural Language Search Processing:** Implemented a sophisticated search system using NLP techniques that interprets user intent from natural language queries (e.g., "movies like Inception", "funny action movies from the 90s"), accurately identifying similarity requests, mood indicators, time periods, and subject matter with 92% accuracy.
+*   **Model Evaluation and Validation:** To assess model performance, I employed metrics like **Mean Squared Error (MSE)** for regression and **accuracy**, **precision**, **recall**, and **F1-score** for classification. Techniques like cross-validation were used to ensure the robustness and generalizability of the models.
 
-*   **AWS Cloud Infrastructure:** Designed and deployed a serverless backend using AWS services (Cognito, API Gateway, Lambda, DynamoDB), reducing operational costs by 65% compared to traditional server architecture while maintaining 99.9% uptime and handling 500+ concurrent users during peak hours.
+*   **Visualization and Interpretation:** I used **Matplotlib** to create visualizations that aid in understanding stock market trends and model performance. These included graphs of predicted vs. actual stock prices, feature importance plots, and distributions of stock price movements over time.
 
-*   **Performance Optimization:** Overcame initial loading challenges by implementing strategic caching (localStorage, sessionStorage), lazy loading, and component memoization, resulting in a 300ms average initial page load (down from 2.3s) and 150ms subsequent interaction response time, achieving a 95/100 Lighthouse performance score.
+*   **Mathematical Foundations:** The project involved applying core mathematical concepts, including **linear algebra**, **statistics**, and **calculus**, which are fundamental to understanding and implementing machine learning algorithms. These principles were crucial for interpreting model outputs and making informed decisions about stock market behavior.
 
-*   **Authentication & Security:** Built comprehensive user authentication with AWS Cognito, including secure sign-up, sign-in, email verification, and password reset functionalities, with proper CSRF protection and token management that passed external security audit with zero critical vulnerabilities.
+**Technologies Used:**
 
-*   **State Management & Data Persistence:** Created a hybrid state management approach combining React Context with local storage persistence, enabling seamless cross-session user experiences while maintaining clean component architecture. This approach resulted in 30% better user retention metrics compared to earlier prototypes.
+*   **Python:** The primary programming language for data analysis, model development, and visualization.
+*   **scikit-learn:** A powerful machine learning library used for implementing regression and classification algorithms.
+*   **Pandas:** Used for efficient data manipulation and preprocessing.
+*   **NumPy:** Utilized for numerical operations, especially with arrays and matrices.
+*   **Matplotlib:** The main library used for creating static data visualizations.
 
-*   **Comprehensive Testing:** Implemented a robust testing strategy with Jest for unit tests (85% coverage), React Testing Library for component tests, and Cypress for end-to-end testing, reducing production bugs by 75% compared to previous projects.
-
-**Core Features:**
-
-*   Multi-step onboarding questionnaire capturing detailed user preferences with 80% completion rate
-*   Personalized recommendations with smart filtering and refresh capabilities
-*   Comprehensive content discovery features including trending sections and category browsers
-*   Smart search with natural language understanding and multi-parameter filtering
-*   User collections (Favorites, Watchlist) with cloud synchronization and offline capabilities
-*   Responsive design with animation-enhanced UI using Framer Motion and Tailwind CSS
-*   Analytics integration providing insights into user behavior and preference patterns
-
-**Technologies:**
-
-*   **Frontend:** React, Tailwind CSS, Framer Motion, React Router
-*   **Backend:** AWS (Cognito, Lambda, API Gateway, DynamoDB)
-*   **External APIs:** TMDB API
-*   **DevOps:** Webpack, Babel, Cloudflare, GitHub Actions for CI/CD
-
-This project showcases my expertise in building production-grade applications with complex state management, third-party API integration, cloud architecture, and optimization for performance and user experience. The recommendation engine's intelligent preference mapping and natural language search capabilities highlight my ability to implement sophisticated algorithms within a polished user interface.`,
-    technologies: ['React', 'AWS', 'JavaScript', 'Tailwind CSS', 'API Integration', 'Framer Motion', 'DynamoDB', 'CI/CD'],
-    github: 'https://github.com/20ns/movierec',
-    liveDemo: 'https://www.movierec.net',
-    className: 'movie-recommendation',
-    initialAnimation: false,
+This project demonstrates my proficiency in applying machine learning techniques to analyze complex financial data and make informed predictions. It highlights my ability to work with large datasets, implement various algorithms, evaluate model performance, and interpret results using visualizations.`,
+    technologies: ['Python', 'Pandas', 'Scikit-learn'],
+    github: 'https://github.com/20ns/stockmlproject',
+    initialAnimation: true,
     status: PROJECT_STATUS.COMPLETED.label,
-    category: CATEGORIES.FULLSTACK,
-    stats: [
-      { icon: <BarChart3 size={16} />, label: 'User Satisfaction', value: '78%' },
-      { icon: <Clock size={16} />, label: 'Load Time', value: '300ms' },
-      { icon: <Layers size={16} />, label: 'Components', value: '30+' }
-    ],
+    category: CATEGORIES.ML,
   },
 ];
 

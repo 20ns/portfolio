@@ -26,18 +26,7 @@ const Intro = React.memo(() => {
       ref={introRef}
       style={{ willChange: 'transform, opacity' }}
     >
-      {/* Inline CSS for animations */}
-      <style>
-        {`
-          @keyframes fade-in {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .intro-animate-fade-in {
-            animation: fade-in 0.6s ease-out forwards;
-          }
-        `}
-      </style>      <div
+      <div
         className={`bg-opacity-10 bg-white backdrop-blur-sm rounded-xl p-8 border border-white/10 shadow-xl transition-opacity duration-500 ${
           isVisible ? 'opacity-100' : 'opacity-0'
         }`}
