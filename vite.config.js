@@ -11,10 +11,9 @@ export default defineConfig({
         plugins: ['@emotion/babel-plugin']
       }
     }),
-    vitePluginCompression(),
-    VitePWA({
+    vitePluginCompression(),    VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png', 'logo.jpg'],
+      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.jpg', 'logo.jpg'],
       manifest: {
         name: 'Portfolio',
         short_name: 'Portfolio',
@@ -24,14 +23,14 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: 'pwa-192x192.jpg',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/jpeg'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'pwa-512x512.jpg',
             sizes: '512x512',
-            type: 'image/png',
+            type: 'image/jpeg',
             purpose: 'any maskable'
           }
         ]
