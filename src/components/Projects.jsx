@@ -722,7 +722,7 @@ const technologyStyles = {
 const projectsData = [
   {
     title: 'Movie Recommendation',
-    imageUrl: movierec,    description: `MovieRec is a sophisticated, production-ready movie and TV show recommendation platform deployed at [movierec.net](https://www.movierec.net) with 10,000+ monthly active users. Completed in 6 months from concept to production, this project demonstrates my ability to architect and implement complex full-stack applications with a focus on personalization, scalability, and modern user experience.
+    imageUrl: movierec,    description: `MovieRec is a sophisticated, production-ready movie and TV show recommendation platform deployed at [movierec.net](https://www.movierec.net) with 100+ monthly active users. Completed in 6 months from concept to production, this project demonstrates my ability to architect and implement complex full-stack applications with a focus on personalization, scalability, and modern user experience.
 
 **Key Technical Achievements:**
 
