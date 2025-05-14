@@ -34,6 +34,12 @@ const Resume = () => {
       degree: "Bachelor of Science in Computer Science",
       period: "2023 - Present",
       description: "Focusing on software engineering, algorithms, and database systems. Maintaining a strong academic record with various practical projects."
+    },
+    {
+      school: "Sixth Form",
+      degree: "A-Levels: Biology, Chemistry, Computer Science",
+      period: "2021 - 2023",
+      description: "Achieved A-Level qualifications, developing a strong foundation in scientific principles and computational thinking."
     }
   ];
 
