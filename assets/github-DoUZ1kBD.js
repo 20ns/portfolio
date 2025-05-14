@@ -1,4 +1,4 @@
-import{c}from"./createLucideIcon-ipboNUXt.js";
+import{c}from"./createLucideIcon-O_Xeb52P.js";
 /**
  * @license lucide-react v0.471.1 - ISC
  *
