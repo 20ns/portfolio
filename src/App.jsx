@@ -4,6 +4,7 @@ const Hero = lazy(() => import('./components/Hero'))
 const Intro = lazy(() => import('./components/Intro'))
 const Skills = lazy(() => import('./components/Skills'))
 const Projects = lazy(() => import('./components/Projects'))
+const Certificates = lazy(() => import('./components/Certificates'))
 const Resume = lazy(() => import('./components/Resume'))
 const Contact = lazy(() => import('./components/Contact'))
 const ParticlesComponent = lazy(() => import('./components/ParticlesComponent'))
@@ -53,6 +54,11 @@ function App() {
         </section>        <section id="portfolio">
           <Suspense fallback={<div className="skeleton-loader" />}>
             <Projects />
+          </Suspense>
+        </section>
+        <section id="certificates">
+          <Suspense fallback={<div className="skeleton-loader" />}>
+            <Certificates />
           </Suspense>
         </section>
         <section id="resume">

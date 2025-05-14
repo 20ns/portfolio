@@ -15,7 +15,7 @@ const Navbar = () => {
       setScrolled(window.scrollY > 50);
       
       // Track which section is currently visible
-      const sections = ['hero', 'skills', 'portfolio', 'contact'];
+      const sections = ['hero', 'skills', 'portfolio', 'certificates', 'contact'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -103,8 +103,8 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-1/2 right-5 sm:right-3.5 w-16 sm:w-32 h-[360px] bg-gray-800 text-white transition-all duration-300 transform -translate-y-1/2 opacity-0 z-50
-        ${isVisible ? 'animate-nav-appear' : ''} 
-        ${isOpen ? 'sm:w-36 w-28 bg-opacity-90 backdrop-blur-sm' : 'sm:w-16 w-8 bg-opacity-70 backdrop-blur-sm'}
+        ${isVisible ? 'animate-nav-appear' : ''}
+        ${isOpen ? 'sm:w-40 w-32 bg-opacity-90 backdrop-blur-sm' : 'sm:w-16 w-8 bg-opacity-70 backdrop-blur-sm'}
         ${scrolled ? 'shadow-lg shadow-black/30 bg-opacity-85' : 'bg-opacity-70'}
       `}
       onMouseEnter={handleMouseEnter}
@@ -115,7 +115,7 @@ const Navbar = () => {
       </div>
       
       <ul
-        className={`flex flex-col items-center justify-center h-full gap-6 ${
+        className={`flex flex-col items-center justify-center h-full gap-5 ${ // Adjusted gap for 5 items
           isOpen ? 'opacity-100' : 'opacity-70'
         }`}
       >
@@ -161,6 +161,20 @@ const Navbar = () => {
             {renderAnimatedText('portfolio', 'Projects', 'P')}
           </a>
         </li>
+        <li className={`${activeSection === 'certificates' ? 'transform scale-110' : ''}`}>
+          <a
+            href="#certificates"
+            className="hover:text-blue-400 whitespace-nowrap text-shadow-lg transition-all duration-300"
+            onClick={(e) => {
+              e.preventDefault();
+              smoothScroll('certificates');
+            }}
+            onMouseEnter={() => handleItemHover('certificates')}
+            onMouseLeave={handleItemLeave}
+          >
+            {renderAnimatedText('certificates', 'Certs', 'C')}
+          </a>
+        </li>
         <li className={`${activeSection === 'contact' ? 'transform scale-110' : ''}`}>
           <a
             href="#contact"
@@ -177,21 +191,6 @@ const Navbar = () => {
         </li>
       </ul>
       
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-8 h-8">
-        <a 
-          href="#hero" 
-          onClick={(e) => {
-            e.preventDefault();
-            smoothScroll('hero');
-          }}
-          className="flex items-center justify-center w-8 h-8 rounded-full bg-electric-cyan/20 hover:bg-electric-cyan/40 transition-colors duration-300"
-          title="Back to top"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-white">
-            <polyline points="18 15 12 9 6 15"></polyline>
-          </svg>
-        </a>
-      </div>
     </nav>
   );
 };
