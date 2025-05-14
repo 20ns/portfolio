@@ -30,36 +30,111 @@ const Resume = () => {
   // These would be populated with your actual education/experience
   const education = [
     {
-      school: "University of Computer Science",
+      school: "University",
       degree: "Bachelor of Science in Computer Science",
-      period: "2020 - Present",
+      period: "2023 - Present",
       description: "Focusing on software engineering, algorithms, and database systems. Maintaining a strong academic record with various practical projects."
     }
   ];
 
   const experience = [
     {
-      company: "Software Development Intern",
-      role: "Web Developer",
-      period: "Summer 2023",
-      description: "Developed and maintained web applications using React and Node.js. Collaborated with senior developers to implement new features and fix bugs. Participated in code reviews and agile development processes."
+      role: "Movie Recommendation",
+      company: "GitHub Repo",
+      period: "Personal Project",
+      description: [
+        "Developed a production-ready movie recommendation platform with 100+ monthly active users.",
+        "Designed advanced React architecture with 30+ reusable components and 15+ custom hooks.",
+        "Implemented hybrid recommendation algorithms combining collaborative filtering and content-based approaches.",
+        "Created serverless backend using AWS services (Cognito, API Gateway, Lambda, DynamoDB).",
+        "Achieved 300ms average load time and 95/100 Lighthouse performance score through optimization."
+      ],
+      githubLink: "https://github.com/20ns/movierec" // Assuming this is the link
     },
     {
-      company: "University Project Team",
-      role: "Full Stack Developer",
-      period: "2023 - Present",
-      description: "Working with a team of nine to develop a dynamic website using Java, MySQL, and PHP. Contributing to both frontend and backend development, focusing on responsive design and database management."
+      role: "Peri Palace",
+      company: "GitHub Repo",
+      period: "Team Project",
+      description: [
+        "Led backend development in a team of nine for a comprehensive restaurant management system.",
+        "Architected a relational MySQL database schema with 12+ interconnected tables.",
+        "Engineered secure dual-authentication system for customers and administrators with BCRYPT password hashing.",
+        "Developed fault-tolerant order processing system capable of handling 200+ simultaneous transactions.",
+        "Created comprehensive admin dashboard with real-time insights into inventory, users, and orders."
+      ],
+      githubLink: "https://github.com/20ns/Team-48" // Assuming this is the link
+    },
+    {
+      role: "ML in Stocks",
+      company: "Github Repo",
+      period: "Personal Project",
+      description: [
+        "Built an SVM classification model achieving 78% accuracy in predicting stock market outperformance.",
+        "Created robust data preprocessing pipeline for financial data that improved model accuracy by 23%.",
+        "Implemented hyperparameter optimization across 48+ model configurations using GridSearchCV.",
+        "Developed comprehensive evaluation framework with precision/recall analysis and ROC curve assessment.",
+        "Demonstrated 22% theoretical return improvement over passive investing in back-testing."
+      ],
+      githubLink: "https://github.com/20ns/stockmlproject" // Assuming this is the link
+    },
+    {
+      role: "Portfolio Website",
+      company: "GitHub Repo",
+      period: "Personal Project",
+      description: [
+        "Designed and developed personal portfolio showcasing projects and skills.",
+        "Achieved 95+ Lighthouse performance score through code-splitting, lazy loading, and component memoization.",
+        "Implemented custom animation framework using CSS keyframes and intersection observers.",
+        "Created fully responsive design adapting seamlessly from mobile to desktop viewports."
+      ],
+      githubLink: "https://github.com/20ns/portfolio" // Assuming this is the link
     }
   ];
 
-  const ResumeItem = ({ title, subtitle, period, description }) => (
+  const professionalAttributes = [
+    {
+      title: "Collaborative & Agile",
+      description: "Experienced in working within cross-functional Scrum teams, contributing to process improvements and agile methodologies."
+    },
+    {
+      title: "Innovative Thinker",
+      description: "Passionate about exploring and prototyping generative AI and machine learning solutions that drive operational excellence and enhanced customer experiences."
+    },
+    {
+      title: "Proactive & Adaptable",
+      description: "Committed to staying current with technology trends and challenging the status quo to deliver meaningful, scalable improvements."
+    }
+  ];
+
+  const ResumeItem = ({ title, subtitle, period, description, githubLink }) => (
     <div className={`mb-8 transition-all duration-700 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
       <div className="flex flex-wrap justify-between items-baseline mb-1">
         <h3 className="text-xl font-bold text-white">{title}</h3>
-        <span className="text-sm text-electric-cyan bg-electric-cyan/10 px-3 py-1 rounded-full">{period}</span>
+        {period && <span className="text-sm text-electric-cyan bg-electric-cyan/10 px-3 py-1 rounded-full">{period}</span>}
       </div>
-      <h4 className="text-lg font-medium text-gray-300 mb-2">{subtitle}</h4>
-      <p className="text-gray-400">{description}</p>
+      {subtitle && (
+        <div className="flex items-center mb-2">
+          <h4 className="text-lg font-medium text-gray-300">{subtitle}</h4>
+          {githubLink && (
+            <a
+              href={githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 text-sm text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              Repo
+            </a>
+          )}
+        </div>
+      )}
+      {Array.isArray(description) ? (
+        <ul className="list-disc list-inside text-gray-400 space-y-1">
+          {description.map((item, index) => <li key={index}>{item}</li>)}
+        </ul>
+      ) : (
+        <p className="text-gray-400">{description}</p>
+      )}
     </div>
   );
 
@@ -68,21 +143,9 @@ const Resume = () => {
       <div className="max-w-4xl mx-auto">
         <GradientHeading visibleSection={isVisible}>Resume</GradientHeading>
         
-        <div className={`flex justify-center mb-10 transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <a 
-            href="/path-to-your-resume.pdf" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/25 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 flex items-center gap-2"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-            Download Full Resume
-          </a>
-        </div>
+        {/* Download button removed */}
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-10 mt-10"> {/* Changed to single column for experience */}
           <div className={`relative transition-all duration-700 ease-out delay-100 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-electric-cyan to-transparent opacity-60"></div>
             <div className="pl-8">
@@ -98,21 +161,38 @@ const Resume = () => {
               ))}
             </div>
           </div>
-          
-          <div className={`relative transition-all duration-700 ease-out delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-lime-green to-transparent opacity-60"></div>
-            <div className="pl-8">
-              <h2 className="text-2xl font-bold text-white mb-6">Experience</h2>
-              {experience.map((item, index) => (
-                <ResumeItem
-                  key={index}
-                  title={item.role}
-                  subtitle={item.company}
-                  period={item.period}
-                  description={item.description}
-                />
-              ))}
-            </div>
+        </div>
+        
+        {/* Experience Section - now takes full width */}
+        <div className={`relative mt-16 transition-all duration-700 ease-out delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-lime-green to-transparent opacity-60"></div>
+          <div className="pl-8">
+            <h2 className="text-2xl font-bold text-white mb-6">Experience</h2>
+            {experience.map((item, index) => (
+              <ResumeItem
+                key={index}
+                title={item.role}
+                subtitle={item.company}
+                period={item.period}
+                description={item.description}
+                githubLink={item.githubLink}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Professional Attributes Section */}
+        <div className={`relative mt-16 transition-all duration-700 ease-out delay-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-purple-500 to-transparent opacity-60"></div>
+          <div className="pl-8">
+            <h2 className="text-2xl font-bold text-white mb-6">Professional Attributes</h2>
+            {professionalAttributes.map((item, index) => (
+              <ResumeItem
+                key={index}
+                title={item.title}
+                description={item.description}
+              />
+            ))}
           </div>
         </div>
       </div>
