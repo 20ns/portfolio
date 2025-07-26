@@ -1,15 +1,15 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
+# Dependencies
 node_modules
+
+# Build output
 dist
 dist-ssr
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
 *.local
 
 # Editor directories and files
@@ -23,6 +23,44 @@ dist-ssr
 *.sln
 *.sw?
 
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS generated files
+Thumbs.db
+desktop.ini
+
+# PDF files and documents
+*.pdf
+*.doc
+*.docx
+
+# Temporary and backup files
+*.tmp
+*.temp
+*.bak
+*~
+
+# Archives and zips
+*.zip
+*.rar
+*.tar.gz
+
 # Claude Code files
 CLAUDE.md
 .claude/
+
+# Development files
+dev.bat
+setup-windows.bat
+*.old
+*.new
+
+# Downloads folder
+Downloads/
