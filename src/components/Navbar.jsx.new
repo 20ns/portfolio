@@ -1,0 +1,115 @@
+import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['hero', 'skills', 'portfolio', 'certificates', 'resume', 'contact'];
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const smoothScroll = (targetId) => {
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+      setIsOpen(false);
+    }
+  };
+
+  const navItems = [
+    { id: 'hero', label: 'Home' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'portfolio', label: 'Projects' },
+    { id: 'certificates', label: 'Certificates' },
+    { id: 'resume', label: 'Resume' },
+    { id: 'contact', label: 'Contact' }
+  ];
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 border-b border-light-gray">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <button 
+              onClick={() => smoothScroll('hero')}
+              className="text-xl font-bold text-dark-gray hover:text-professional-blue transition-colors duration-200"
+            >
+              Navpreet Singh
+            </button>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            <div className="flex space-x-8">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => smoothScroll(item.id)}
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                    activeSection === item.id
+                      ? 'text-professional-blue border-b-2 border-professional-blue'
+                      : 'text-cool-gray hover:text-professional-blue'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-cool-gray hover:text-professional-blue p-2"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden border-t border-light-gray">
+            <div className="py-2 space-y-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => smoothScroll(item.id)}
+                  className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                    activeSection === item.id
+                      ? 'text-professional-blue bg-blue-50'
+                      : 'text-cool-gray hover:text-professional-blue hover:bg-soft-gray'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

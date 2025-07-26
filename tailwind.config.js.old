@@ -1,0 +1,80 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        'navy-blue': '#1e3a8a',
+        'dark-blue': '#1e40af', 
+        'cool-gray': '#64748b',
+        'slate': '#475569',
+        'professional-blue': '#3b82f6',
+        'success-green': '#10b981',
+        'soft-gray': '#f8fafc',
+        'dark-gray': '#1f2937',
+        'light-gray': '#e5e7eb',
+        'border-gray': '#374151',
+      },
+      fontFamily: {
+        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'Consolas', 'monospace'],
+      },
+      animation: {
+        'fade-in': 'fade-in 0.6s ease-out forwards',
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { 
+            opacity: '0',
+            transform: 'translateY(10px)'
+          },
+          '100%': { 
+            opacity: '1',
+            transform: 'translateY(0)'
+          }
+        }, 
+          },
+          '100%': { 
+            transform: 'scale(1)', 
+            opacity: '1' 
+          }
+        },
+        'float': {
+          '0%, 100%': { 
+            transform: 'translateY(0)' 
+          },
+          '50%': { 
+            transform: 'translateY(-10px)' 
+          }
+        },
+        'pulse-glow': {
+          '0%, 100%': { 
+            opacity: '1',
+            transform: 'scale(1)'
+          },
+          '50%': { 
+            opacity: '0.8',
+            transform: 'scale(1.05)'
+          }
+        },
+        'tech-tag-pop': {
+          '0%': { 
+            transform: 'scale(0.8) translateY(10px)', 
+            opacity: '0' 
+          },
+          '100%': { 
+            transform: 'scale(1) translateY(0)', 
+            opacity: '1' 
+          }
+        },
+        'nav-appear': { // Added nav-appear keyframes
+          '0%': {
+            transform: 'translateX(100px) translateY(-50%)',
+            opacity: '0'
+          },
+        },
+      }
+    },
+  },
+  plugins: [require('@tailwindcss/typography')],
+};
